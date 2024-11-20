@@ -6,5 +6,6 @@ class Freelancer(models.Model):
     email = models.EmailField()
     phone_number = models.SmallIntegerField(max_length=10)
     password = models.CharField(max_length=254)
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
