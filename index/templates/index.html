@@ -7,7 +7,6 @@
     <title>منصة محترف</title>
     {% load static %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'style.css' %}">
@@ -35,7 +34,7 @@
         </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="blurclass">
         <div class="container">
             <div class="hero-text">
                 <h1>موقع محترف</h1>
@@ -50,7 +49,7 @@
         </div>
     </section>
 
-    <div class="container">
+    <div class="container" id="blurclass">
         <div class="content">
             <div class="text-section">
                 <div class="icon">
@@ -112,7 +111,7 @@
         <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
     <div class="bg-white p-8 rounded shadow-md w-full max-w-4xl" id="register_login">
-        <div class="flex justify-between mb-8">
+        <div class="flex justify-between mb-8 " >
             <div class="w-1/2 pr-4" id="register">
                 <h2 class="text-2xl font-semibold mb-4">Registration</h2>
                 <form method="post" action="/register">

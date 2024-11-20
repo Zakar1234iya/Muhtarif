@@ -304,3 +304,9 @@ body {
     transition: all 0.3s ease-in-out;
   }
   
+ /* Blur effect for the background */
+.blur {
+    filter: blur(8px);
+    transition: filter 0.3s ease-in-out;
+}
+

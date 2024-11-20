@@ -1,40 +1,52 @@
 $(document).ready(function () {
-    // Initially hide the modal
+    // Initially hide the modal and overlay
     $('#register_login').hide();
     $('#overlay').hide();
 
-    // Show the login form when the login button is clicked
+    // Function to show the modal and apply blur
+    function showModal(isLogin) {
+        $('#register_login').show();
+        $('#overlay').show();
+        $('#blurclass').addClass('blur');
+
+        if (isLogin) {
+            $('#login').show();
+            $('#register').hide();
+        } else {
+            $('#register').show();
+            $('#login').hide();
+        }
+    }
+
+    // Function to hide the modal and remove blur
+    function closeModal() {
+        $('#register_login').hide();
+        $('#overlay').hide();
+        $('#blurclass').removeClass('blur');
+    }
+
+    // Show login form
     $('.login-btn').click(function (e) {
-        e.preventDefault(); // Prevent the default action of the link
-        $('#register_login').show(); // Show the modal
-        $('#overlay').show(); // Show the dark overlay
-        $('#register').hide(); // Hide the register form
-        $('#login').show(); // Show the login form
-        $('body').addClass('blur'); // Apply the blur effect to the background content
+        e.preventDefault();
+        showModal(true);
     });
 
-    // Show the register form when the register button is clicked
+    // Show register form
     $('.register-btn').click(function (e) {
-        e.preventDefault(); // Prevent the default action of the link
-        $('#register_login').show(); // Show the modal
-        $('#overlay').show(); // Show the dark overlay
-        $('#login').hide(); // Hide the login form
-        $('#register').show(); // Show the register form
-        $('body').addClass('blur'); // Apply the blur effect to the background content
+        e.preventDefault();
+        showModal(false);
     });
 
-    // Close the modal when the close button is clicked
-    $('#close-modal').click(function (e) {
-        e.preventDefault(); // Prevent the default action
-        $('#register_login').hide(); // Hide the modal
-        $('#overlay').hide(); // Hide the dark overlay
-        $('body').removeClass('blur'); // Remove the blur effect from the page
+    // Close modal on close button or overlay click
+    $('#close-modal, #overlay').click(function () {
+        closeModal();
     });
 
-    // Close the modal when the overlay is clicked
-    $('#overlay').click(function () {
-        $('#register_login').hide(); // Hide the modal
-        $('#overlay').hide(); // Hide the dark overlay
-        $('body').removeClass('blur'); // Remove the blur effect from the page
+    // Close modal when clicking outside the content
+    $(document).mouseup(function (e) {
+        var modalContent = $(".modal-content");
+        if (!modalContent.is(e.target) && modalContent.has(e.target).length === 0) {
+            closeModal();
+        }
     });
 });
