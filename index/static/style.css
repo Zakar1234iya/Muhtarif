@@ -252,3 +252,55 @@ nav ul li a {
 .register-btn:hover {
     background-color: #1e7e34;
 }
+/* Apply blur effect to everything inside content-wrapper except the modal */
+
+  
+  /* Modal Container */
+  #register_login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1050; /* Ensure it stays on top of the blurred page */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 600px; /* Optional: Limit the maximum width */
+    display: none; /* Initially hidden */
+    filter: none !important; /* Make sure the displayed div is not blurred */
+    transition: none;
+  }
+  
+  
+  /* Dark overlay behind the modal */
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040; /* Ensure it's behind the modal */
+    display: none; /* Initially hidden */
+  }
+ /* Remove the body blur */
+body {
+    filter: none; /* No blur effect on body */
+  }
+  
+  /* Add blur effect and box-shadow to the forms */
+  #register, #login {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px); /* Apply blur effect to the form background */
+    border-radius: 10px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+  }
+  
+  /* Optional: Add transition for smooth effect */
+  #register, #login {
+    transition: all 0.3s ease-in-out;
+  }
+  
