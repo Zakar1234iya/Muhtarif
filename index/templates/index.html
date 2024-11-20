@@ -1,411 +1,112 @@
+<!DOCTYPE html>
 <html lang="ar">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-منصة محترف  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-  <style>
-   body {
-            font-family: 'Cairo', sans-serif;
-            margin: 0;
-            padding: 0;
-            direction: rtl;
-            background-color: #f8f9fa;
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>منصة محترف</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="static/style.css">
+</head>
 
-        }
-        header {
-            width: 100%;
-            padding: 10px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            opacity: 100%;
-            position: fixed;
-            background: rgba(255, 255, 255, 0.2); 
-            backdrop-filter: blur(10px); 
-        }
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            
-        }
-        .logo img {
-            height: 90px;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            gap: 20px;
-            margin-right: 50px;
-        }
-        nav ul li {
-            display: inline;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #000;
-            font-weight: 700;
-            
-        }
-        .language-selector {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .language-selector select {
-            border: none;
-            background: none;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 50px 0;
-            background-color: #f8f9fa;
-        }
-        .hero img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 10%;
-        }
-        .hero-text {
-            max-width: 50%;
-        }
-        .hero-text h1 {
-            color: #00a651;
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        .hero-text p {
-            font-size: 18px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .app-buttons img {
-            height: 50px;
-            margin-right: 10px;
-        }
-        .content {
-            display: flex;
-            justify-content: space-between;
-            width: 80%;
-            margin-top: 50px;
-        }
-        .phone {
-            width: 300px;
-            height: 600px;
-            background-color: #acdddd;
-            border-radius: 30px;
-            position: relative;
-        }
-        .phone::before {
-            content: '';
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 5px;
-            background-color: #000;
-            border-radius: 10px;
-        }
-        .phone::after {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 20px;
-            height: 20px;
-            background-color: #000;
-            border-radius: 50%;
-        }
-        .phone img {
-            width: 100px;
-            margin-top: 250px;
-            margin-right: 30%;
-        }
-        .text-section {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-        .text-section h2 {
-            color: #1a2b48;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-        .text-section p {
-            color: #666666;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-        .text-section .icon {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            margin: 10%;
-        }
-        .text-section .icon i {
-            font-size: 24px;
-            color: #d3d3d3;
-            margin-left: 10px;
-        }
-        .background-shapes {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .background-shapes .shape {
-            position: absolute;
-            background-color: #d3d3d3;
-            opacity: 0.5;
-            transform: rotate(45deg);
-        }
-        .background-shapes .shape1 {
-            width: 200px;
-            height: 200px;
-            top: 20%;
-            left: 5%;
-        }
-        .background-shapes .shape2 {
-            width: 150px;
-            height: 150px;
-            top: 70%;
-            left: 10%;
-        }
-        .background-shapes .shape3 {
-            width: 250px;
-            height: 250px;
-            top: 10%;
-            right: 5%;
-            background-color: #a3d3d3;
-        }
-        .social-icons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-top: 2px solid #ddd;
-    margin-top: 50px;
-}
-
-.social-icons a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 50%;
-    text-decoration: none;
-    font-size: 1.5rem;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-.social-icons a:hover {
-    transform: scale(1.2);
-    background-color: #0056b3;
-}
-
-.social-icons .copyright {
-    flex-basis: 100%;
-    text-align: center;
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: #555;
-    font-weight: 500;
-}
-
-@media (max-width: 480px) {
-    .social-icons a {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-    }
-}
-.auth-buttons {
-  display: flex;
-  gap: 10px;
-  margin-left: auto; 
-  margin-right: 10%;
-}
-
-.auth-buttons a {
-  text-decoration: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  color: #fff;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.login-btn {
-  background-color: #007bff; /* Blue color for login */
-}
-
-.login-btn:hover {
-  background-color: #0056b3;
-}
-
-.register-btn {
-  background-color: #28a745; /* Green color for register */
-}
-
-.register-btn:hover {
-  background-color: #1e7e34;
-}
-
-
-  </style>
- </head>
- <body>
+<body>
     <header>
         <div class="container">
-          <div class="logo">
-            <img alt="Logo" height="50" src="image_2024-11-20_140357959-removebg-preview.png" width="100" />
-          </div>
-          <nav>
-            <ul>
-              <li><a href="#">الرئيسية</a></li>
-              <li><a href="#">من نحن</a></li>
-              <li><a href="#">الأسئلة الشائعة</a></li>
-              <li><a href="#">اتصل بنا</a></li>
-            </ul>
-          </nav>
-          <div class="language-selector"></div>
-          <div class="auth-buttons">
-            <a href="#" class="login-btn">تسجيل الدخول</a>
-          </div>
+            <div class="logo">
+                <img alt="Logo" height="50" src="image_2024-11-20_140357959-removebg-preview.png" width="100" />
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">خدمات فني</a></li>
+                    <li><a href="#">سجل معنا</a></li>
+                    <li><a href="#">مدونتنا</a></li>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="language-selector"></div>
+            <div class="auth-buttons">
+                <a href="#" class="login-btn">تسجيل الدخول</a>
+                <a href="#" class="register-btn">إنشاء حساب</a>
+            </div>
         </div>
-      </header>
-  <section class="hero">
-   <div class="container">
-    <div class="hero-text">
-     <h1>
-        منصة محترف
-     </h1>
-     <p>
-      هي منصة الكترونية تفاعلية لتقديم خدمات الصيانة المنزلية عبر موقع خاص بالهواتف و الاجهزة الالكترونية الذكية
-     </p>
-     <div class="app-buttons">
-     </div>
+    </header>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-text">
+                <h1>موقع محترف</h1>
+                <p>هي منصة الكترونية تفاعلية لتقديم خدمات الصيانة المنزلية عبر موقع خاص بالهواتف و الاجهزة الالكترونية
+                    الذكية</p>
+                <div class="app-buttons"></div>
+            </div>
+            <div class="hero-image">
+                <img src="{% static 'images//logo-v2-muhtarif.png' %}" alt="Logo " height="400" width="600" />
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="content">
+            <div class="text-section">
+                <div class="icon">
+                    <i class="fas fa-hexagon"></i>
+                    <div>
+                        <h2>خدمة عملاء يدعمون طلبك</h2>
+                        <p>عميلنا بيلاقى الدعم اللي يحتاجه من فريق سعادة العملاء كل وقت وكل يوم</p>
+                    </div>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hexagon"></i>
+                    <div>
+                        <h2>تقدر تقييم الخدمة</h2>
+                        <p>عشان نضمن لك الجودة المطلوبة، كل عميل يقدر يقيم الخدمة اللي توصله</p>
+                    </div>
+                </div>
+            </div>
+            <div class="phone">
+                <img src="{% static 'images//logo-v2-muhtarif.png' %}" alt="Logo " height="400" width="600" />
+            </div>
+            <div class="text-section">
+                <div class="icon">
+                    <i class="fas fa-hexagon"></i>
+                    <div>
+                        <h2>كل الخدمات عندنا</h2>
+                        <p>موقع محترف يقدم لك كل خدمات الصيانة المنزلية اللي ممكن تحتاجها</p>
+                    </div>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hexagon"></i>
+                    <div>
+                        <h2>خدمتنا فورية</h2>
+                        <p>أكثر شيء بيميزنا أن خدمتنا سريعة وفورية. اطلب المحترف الحين ومسافة الطريق وهو عندك</p>
+                    </div>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-hexagon"></i>
+                    <div>
+                        <h2>نضمن لك الجودة والسعر</h2>
+                        <p>احنا عشان كذا موجودين اصلاً. راح نقدم لك ضمان على الخدمة وسعر يرضيك</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="background-shapes">
+            <div class="shape shape1"></div>
+            <div class="shape shape2"></div>
+            <div class="shape shape3"></div>
+        </div>
     </div>
-    <div class="hero-image">
-     <img alt="App Screenshot" height="400" src="image_2024-11-20_140357959-removebg-preview.png" width="600"/>
-    </div>
-   </div>
-  </section>
-  <div class="container">
-    <div class="content">
-     <div class="text-section">
-      <div class="icon">
-       <i class="fas fa-hexagon">
-       </i>
-       <div>
-        <h2>
-         خدمة عملاء يدعمون طلبك
-        </h2>
-        <p>
-         عميلنا بيلاقى الدعم اللي يحتاجه من فريق سعادة العملاء كل وقت وكل يوم
-        </p>
-       </div>
-      </div>
-      <div class="icon">
-       <i class="fas fa-hexagon">
-       </i>
-       <div>
-        <h2>
-         تقدر تقييم الخدمة
-        </h2>
-        <p>
-         عشان نضمن لك الجودة المطلوبة، كل عميل يقدر يقيم الخدمة اللي توصله
-        </p>
-       </div>
-      </div>
-     </div>
-     <div class="phone">
-      <img alt="Logo of the app" height="100" src="image_2024-11-20_140357959-removebg-preview.png" width="100"/>
-     </div>
-     <div class="text-section">
-      <div class="icon">
-       <i class="fas fa-hexagon">
-       </i>
-       <div>
-        <h2>
-         كل الخدمات عندنا
-        </h2>
-        <p>
-         موقع محترف يقدم لك كل خدمات الصيانة المنزلية اللي ممكن تحتاجها
-        </p>
-       </div>
-      </div>
-      <div class="icon">
-       <i class="fas fa-hexagon">
-       </i>
-       <div>
-        <h2>
-         خدمتنا فورية
-        </h2>
-        <p>
-         أكثر شيء بيميزنا أن خدمتنا سريعة وفورية. اطلب المحترف الحين ومسافة الطريق وهو عندك
-        </p>
-       </div>
-      </div>
-      <div class="icon">
-       <i class="fas fa-hexagon">
-       </i>
-       <div>
-        <h2>
-         نضمن لك الجودة والسعر
-        </h2>
-        <p>
-         احنا عشان كذا موجودين اصلاً. راح نقدم لك ضمان على الخدمة وسعر يرضيك
-        </p>
-       </div>
-      </div>
-     </div>
-    </div>
-    <div class="background-shapes">
-     <div class="shape shape1">
-     </div>
-     <div class="shape shape2">
-     </div>
-     <div class="shape shape3">
-     </div>
-    </div>
-   </div>
-   <div class="social-icons">
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-    <a href="#"><i class="fab fa-youtube"></i></a>
-    <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
-    <a href="#"><i class="fab fa-tiktok"></i></a>
-    <a href="#"><i class="fab fa-facebook-messenger"></i></a>
-    <h6 class="copyright"> كل الحقوق محفوظة لموقع محترف 2024©</h6>
-</div>
-  </body>
- </html>
- </body>
-</html>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-facebook-messenger"></i></a>
+        <h6 class="copyright">© Copyright</h6>
