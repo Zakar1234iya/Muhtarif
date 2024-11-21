@@ -68,7 +68,7 @@ nav ul li a {
     max-width: 50%;
 }
 .hero-text h1 {
-    color: #00a651;
+    color: #103d5a;
     font-size: 36px;
     margin-bottom: 20px;
 }
@@ -241,16 +241,16 @@ nav ul li a {
     transition: background-color 0.3s;
 }
 .login-btn {
-    background-color: #007bff;
+    background-color: #103d5a;
 }
 .login-btn:hover {
-    background-color: #0056b3;
+    background-color: rgb(2, 96, 196);
 }
 .register-btn {
-    background-color: #28a745;
+    background-color: #fbb519;
 }
 .register-btn:hover {
-    background-color: #1e7e34;
+    background-color: #ce9315;
 }
 /* Apply blur effect to everything inside content-wrapper except the modal */
 
@@ -310,3 +310,109 @@ body {
     transition: filter 0.3s ease-in-out;
 }
 
+
+.register_login {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 50px auto;
+    gap: 30px;
+}
+
+.register_login > div {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border: 2px solid #103d5a;
+}
+
+.register_login h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #103d5a;
+    text-align: center;
+    border-bottom: 2px solid #fbb519;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.register_login form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.register_login label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #103d5a;
+    margin-bottom: 5px;
+}
+
+.register_login input[type="text"],
+.register_login input[type="email"],
+.register_login input[type="password"],
+.register_login input[type="date"] {
+    width: 100%;
+    border: 2px solid #103d5a;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9fafb;
+    color: #103d5a;
+}
+
+.register_login input:focus {
+    outline: none;
+    border-color: #fbb519;
+    box-shadow: 0 0 8px rgba(251, 181, 25, 0.5);
+}
+
+.register_login button[type="submit"] {
+    background-color: #fbb519;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-transform: uppercase;
+}
+.register_login select {
+    width: 80%;
+}
+
+.register_login button[type="submit"]:hover {
+    background-color: #103d5a;
+    transform: translateY(-2px);
+    color: #fbb519;
+}
+
+@media (max-width: 768px) {
+    .register_login {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .register_login > div {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .register_login h2 {
+        font-size: 1.5rem;
+    }
+
+    .register_login button[type="submit"] {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
