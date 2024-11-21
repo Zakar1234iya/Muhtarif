@@ -42,11 +42,11 @@ $(document).ready(function () {
         closeModal();
     });
 
-    // Close modal when clicking outside the content
-    $(document).mouseup(function (e) {
-        var modalContent = $(".modal-content");
-        if (!modalContent.is(e.target) && modalContent.has(e.target).length === 0) {
-            closeModal();
-        }
-    });
-});
+//     // Close modal when clicking outside the content
+//     $(document).mouseup(function (e) {
+//         var modalContent = $(".modal-content");
+//         if (!modalContent.is(e.target) && modalContent.has(e.target).length === 0) {
+//             closeModal();
+//         }
+//     });
+// });
