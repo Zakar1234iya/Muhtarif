@@ -17,8 +17,8 @@ class Freelancer(models.Model):
     profession = models.ForeignKey(Profession)
     
     
-def add Profession():
-    professions = [
+def add_pro():
+    Profession = [
         {"proid": 1, "protag": "جنين"},
         {"proid": 2, "protag": "قلقيلية"},
         {"proid": 3, "protag": "تابلس"},
