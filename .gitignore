@@ -1,2 +1,7 @@
 /Muhtaraif
 db.sqlite3
+*.pyc
+*.pyc
+*.pyc
+*.pyc
+/index/__pycache__
