@@ -3,35 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'style.css' %}">
   <title>صفحة المستخدم</title>
 </head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <header class="header">
-      <button class="logout-btn">تسجيل الخروج</button>
-      <img src="download (1).png" class="logo">
-    </header>
+  <header>
+    <div class="container">
+        <div class="logo">
+            <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">خدماتنا</a></li>
+                <li><a href="#">من نحن</a></li>
+                <li><a href="#">الأسئلة الشائعة</a></li>
+                <li><a href="#">اتصل بنا</a></li>
+            </ul>
+        </nav>
+        <div class="language-selector"></div>
+        <div class="auth-buttons">
+            <a href="#" class="login-btn">تسجيل خروج</a>
+        </div>
+    </div>
+</header>
 
     <main class="content">
       
 
-      <div class="task-info">
-        <p>عدد المهام المنجزة: </p>
-        <p>الرصيد: </p>
-        <p>الوصف:</p>
-      </div>
-
+      
       
       <div class="profile-card">
         <div class="profile-pic"></div>
         <p class="name">الاسم</p>
         <button class="edit-btn">تعديل</button>
+        <h3>Your Rating</h3>
+        <h3>⭐⭐⭐⭐⭐</h3>
         <div class="rating">
          
         </div>
       </div>
+    <div class="notificationss">
+      <div class="notifications">
+        <h3>الإشعارات</h3>
+        <div class="notification">إشعار 1</div>
+        <div class="notification">إشعار 2</div>
+      </div>
+      <div class="task-info">
+        <p>عدد المهام المنجزة: </p>
+        <p>الرصيد: </p>
+        <p>الوصف:</p>
+      </div>
+    </div>
 
       <div class="comments">
         
@@ -45,11 +69,7 @@
           <button class="reply-btn">التعليقات</button>
         </div>
       </div>
-      <div class="notifications">
-        <h3>الإشعارات</h3>
-        <div class="notification">إشعار 1</div>
-        <div class="notification">إشعار 2</div>
-      </div>
+      
     </main>
   </div>
 </body>

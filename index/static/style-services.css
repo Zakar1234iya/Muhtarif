@@ -157,6 +157,9 @@ nav ul li a:hover {
     font-weight: 500;
     font-size: 20px;
 }
+h3{
+    margin-top: 30px;
+}
 
 @media (max-width: 480px) {
     nav ul {
@@ -179,3 +182,4 @@ nav ul li a:hover {
         width: 120px;
         height: 120px;
     }
+}
