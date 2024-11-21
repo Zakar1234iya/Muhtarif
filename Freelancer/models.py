@@ -13,8 +13,8 @@ class Freelancer(models.Model):
     password = models.CharField(max_length=254)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    address = models.ForeignKey(Address)
-    profession = models.ForeignKey(Profession)
+    address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    profession = models.ForeignKey(Profession,on_delete=models.CASCADE)
     
     
 def add_pro():
