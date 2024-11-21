@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'Muhtaraif.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mansaf',   # Replace with your MySQL database name
-        'USER': 'prj_mansaf',   # Replace with your MySQL username
-        'PASSWORD': '@toor369',  # Replace with your MySQL password
-        'HOST': '127.0.0.1',   # Or the address of your MySQL server
-        'PORT': '3306',        # Default MySQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
