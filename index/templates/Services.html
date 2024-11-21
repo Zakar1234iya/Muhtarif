@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Cairo', sans-serif;
+            background-color: #f8f9fa;
+            direction: rtl;
+        }
+
+        header {
+            width: 100%;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .register-btn {
+            background-color: #28a745;
+        }
+
+        .register-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .main {
+            margin-top: 100px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            width: 30%;
+            margin-right: 33%;
+            border-radius: 10%;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        .service-box {
+            background-color: #103d5a;
+            color: #fbb519;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .service-box:hover {
+            transform: scale(1.1);
+        }
+
+        .service-box i {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .social-icons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 2px solid #ddd;
+            margin-top: 50px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: scale(1.2);
+            background-color: #0056b3;
+        }
+
+        .social-icons .copyright {
+            flex-basis: 100%;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+            font-size: 20px;
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .main {
+                padding: 10px;
+            }
+
+            .service-box {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="image_2024-11-20_140357959-removebg-preview.png" alt="Logo">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">خدمات فني</a></li>
+                    <li><a href="#">سجل معنا</a></li>
+                    <li><a href="#">مدونتنا</a></li>
+                    <li><a href="#">الأسئلة الشائعة</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="#" class="login-btn">تسجيل الدخول</a>
+                <a href="#" class="register-btn">إنشاء حساب</a>
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="service-box">
+            <i class="fas fa-satellite-dish"></i>
+            <p>ستالايت</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-home"></i>
+            <p>أجهزة منزلية</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-bicycle"></i>
+            <p>سباكة</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-truck"></i>
+            <p>نقل</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-plug"></i>
+            <p>كهرباء</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-bug"></i>
+            <p>مكافحة حشرات</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-wind"></i>
+            <p>تكييف</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-paint-roller"></i>
+            <p>دهان</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-broom"></i>
+            <p>تنظيف</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-mobile-alt"></i>
+            <p>صيانة جوال</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-camera"></i>
+            <p>كاميرات مراقبة</p>
+        </div>
+        <div class="service-box">
+            <i class="fas fa-tools"></i>
+            <p>نجارة</p>
+        </div>
+    </div>
+    <div class="social-icons">
+        <h6 class="copyright">Support</h6>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-facebook-messenger"></i></a>
+        <h6 class="copyright">© Copyright</h6>
+    </div>
+</body>
+</html>
