@@ -60,8 +60,17 @@ nav ul li a {
     padding: 50px 0;
     background-color: #f8f9fa;
 }
+.hero-image{
+    margin-top: 50px;  
+}
+.img-worker{
+    /* width : 500px; */
+    border: none;
+    margin: 0;
+    padding: 0;
+
+}
 .hero img {
-    margin-top: 100px;
     max-width: 100%;
     height: auto;
 }
@@ -179,7 +188,7 @@ nav ul li a {
     align-items: center;
     width: 50px;
     height: 50px;
-    background-color: #103d5a;
+    background-color: #007bff;
     color: white;
     border-radius: 50%;
     text-decoration: none;
