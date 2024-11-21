@@ -13,21 +13,23 @@ class Freelancer(models.Model):
     password = models.CharField(max_length=254)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    address = models.ForeignKey(Address)
-    profession = models.ForeignKey(Profession)
+    address = models.ForeignKey(Address,on_delete=models.CASCADE)
+    profession = models.ForeignKey(Profession,on_delete=models.CASCADE)
     
     
 def add_pro():
     Profession = [
-        {"proid": 1, "protag": "جنين"},
-        {"proid": 2, "protag": "قلقيلية"},
-        {"proid": 3, "protag": "تابلس"},
-        {"proid": 4, "protag": "طولكرم"},
-        {"proid": 5, "protag": "جنين"},
-        {"proid": 6, "protag": "سلفيت"},
-        {"proid": 7, "protag": "رام الله"},
-        {"proid": 8, "protag": "أريحا"},
-        {"proid": 9, "protag": "الفدس"},
-        {"proid": 10, "protag": "بيت لحم"},
-        {"proid": 11, "protag": "الخليل"},
+        {"proid": 1, "protag": "فني ستلايت"},
+        {"proid": 2, "protag": "فني صيانة أجهزة منزلية"},
+        {"proid": 3, "protag": "فني سباكة"},
+        {"proid": 4, "protag": "فني كهرباء"},
+        {"proid": 5, "protag": "فني تكييف وتبريد"},
+        {"proid": 6, "protag": "فني دهان"},
+        {"proid": 7, "protag": "فني كاميرات"},
+        {"proid": 8, "protag": "فني نجارة"},
+        {"proid": 9, "protag": "فني بلاط "},
+        {"proid": 10, "protag": "فني نجارة"},
+        {"proid": 11, "protag": "فني بلاط"},
+        {"proid": 12, "protag": "فني جبصين"},
+  
     ]

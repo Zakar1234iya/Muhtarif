@@ -111,52 +111,57 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
         <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
-    <div class="bg-white p-8 rounded shadow-md w-full max-w-4xl" id="register_login">
+    <div class="register_login" id="register_login">
         <div class="flex justify-between mb-8 " >
             <div class="w-1/2 pr-4" id="register">
-                <h2 class="text-2xl font-semibold mb-4">Registration</h2>
+                <h2 class="text-2xl font-semibold mb-4">انشاء</h2>
                 <form method="post" action="/register">
                     {% csrf_token %}
                     <div class="mb-4">
-                        <label for="fname" class="block text-gray-700">First Name</label>
+                        <label for="fname" class="block text-gray-700">الاسم الاول</label>
                         <input type="text" class="w-full border border-gray-400 p-2 rounded" id="fname" name="fname">
                     </div>
                     <div class="mb-4">
-                        <label for="lname" class="block text-gray-700">Last Name</label>
+                        <label for="lname" class="block text-gray-700">الاسم الاخير</label>
                         <input type="text" class="w-full border border-gray-400 p-2 rounded" id="lname" name="lname">
                     </div>
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-700">Email</label>
+                        <label for="email" class="block text-gray-700">البريد الالكتروني</label>
                         <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email">
                     </div>
                     <div class="mb-4">
-                        <label for="birthday" class="block text-gray-700">Birthday</label>
-                        <input type="date" class="w-full border border-gray-400 p-2 rounded" name="birthday" id="birthday" required>
+                        <label for="birthday" class="block text-gray-700">حدد المهنة </label>
+                        <select name="job_category">
+                            <option value="" disabled selected>Choose What Job You can do</option>
+                            <option value="developer">Developer</option>
+                            <option value="designer">Electricity</option>
+                            <option value="writer">Painting</option>
+                        </select>
                     </div>
                     <div class="mb-4">
-                        <label for="password" class="block text-gray-700">Password</label>
+                        <label for="password" class="block text-gray-700">كلمة المرور</label>
                         <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password">
                     </div>
                     <div class="mb-4">
-                        <label for="re_password" class="block text-gray-700">Confirm PW</label>
+                        <label for="re_password" class="block text-gray-700">تاكيد كلمة المرور</label>
                         <input type="password" class="w-full border border-gray-400 p-2 rounded" id="re_password" name="re_password">
                     </div>
-                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">Register</button>
+                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">انشاء حساب</button>
                 </form>
             </div>
-            <div class="w-1/2 pl-4" id="login">
-                <h2 class="text-2xl font-semibold mb-4">Login</h2>
+            <div class="login" id="login">
+                <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
                 <form method="post" action="/login">
                     {% csrf_token %}
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-700">Email</label>
+                        <label for="email" class="block text-gray-700">بريد الكتروني</label>
                         <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email">
                     </div>
                     <div class="mb-4">
-                        <label for="password" class="block text-gray-700">Password</label>
+                        <label for="password" class="block text-gray-700">كلمة السر</label>
                         <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password">
                     </div>
-                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">Log In</button>
+                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">تسجيل الدخول</button>
                 </form>
             </div>
         </div>
