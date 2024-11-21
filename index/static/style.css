@@ -95,28 +95,7 @@ nav ul li a {
     border-radius: 30px;
     
 }
-/* .phone::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 5px;
-    background-color: #000;
-    border-radius: 10px;
-}
-.phone::after {
-    content: '';
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20px;
-    height: 20px;
-    background-color: #000;
-    border-radius: 50%; */
-/* } */
+
 .phone img {
     width: 100px;
     margin-top: 250px;
@@ -124,7 +103,6 @@ nav ul li a {
 }
 .text-section {
     margin: 15px;
-    /* padding: 15px; */
     width: 40%;
     display: flex;
     flex-direction: column;
