@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>صفحة الرئيسية</title>
+    {% load static %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="download (1).png" />
+    <link rel="stylesheet" href="style_user_das.css" />
+    <link rel="stylesheet" href="{% static 'CSS/style_user_das.css'%}">
+</head>
+<body>
+    <header>
+        <div class="model_navbar">
+            <img class="logo navbar-item" src="logo_page.png" alt="Logo">
+            <nav class="navbar-item">
+                <img src="https://via.placeholder.com/100" alt="User profile picture" />
+            <p>اسم: محمد علي</p>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">خدمات محترف</a></li>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons navbar-item">
+                <a href="#" class="logout-btn">تسجيل الخروج </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- <div class="container">
+        <div class="profile_card">
+            <img src="https://via.placeholder.com/100" alt="User profile picture" />
+            <p>اسم: محمد علي</p>
+            <p>الموقع: فلسطين</p>
+            <p>الرقم: 123-456-789</p>
+            <p>بريد إلكتروني: example@gmail.com</p>
+        </div> -->
+
+        <div class="left_container">
+            <div class="task-bar">
+            </div>
+
+            <div class="post-section">
+                <h2>أنشئ منشورًا جديدًا</h2>
+                <form id="post-form">
+                    <textarea placeholder="اكتب منشورك هنا..." rows="5"></textarea>
+                    <button type="submit">نشر</button>
+                </form>
+                <div id="posts-container">
+                    <h3>المنشورات:</h3>
+                    <div class="post-item">
+                        <p>هذا منشور سابق</p>
+                        <span class="meta-info">تم الإنجاز بواسطة: محمد علي | بتاريخ: 2024-11-01</span>
+                    </div>
+                    <div class="post-item">
+                        <p>منشور آخر للتجربة</p>
+                        <span class="meta-info">تم الإنجاز بواسطة: أحمد ياسين | بتاريخ: 2024-11-15</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="social-icons">
+            <h6 class="copyright">Support</h6>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+            <a href="#"><i class="fab fa-facebook-messenger"></i></a>
+            <h6 class="copyright">© Copyright</h6>
+        </div>
+    </div>
+</body>
+
+</html>
