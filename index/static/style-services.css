@@ -25,7 +25,8 @@ header {
 }
 
 .logo img {
-    height: 50px;
+    height: 200px;
+    width: 200px;
 }
 
 nav ul {
@@ -66,7 +67,7 @@ nav ul li a:hover {
 }
 
 .login-btn {
-    background-color: #007bff;
+    background-color: #103d5a;
 }
 
 .login-btn:hover {
