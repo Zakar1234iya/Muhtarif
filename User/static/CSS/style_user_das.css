@@ -47,13 +47,6 @@ nav ul li a {
   transition: color 0.3s;
 }
 
-nav ul li p {
-  font-size: 13px;
-  color: #000;
-  font-weight: bold;
-  transition: color 0.3s;
-}
-
 nav ul li img {
   width: 39px;
   height: 39px;
@@ -92,7 +85,7 @@ nav ul li a:hover {
 }
 
 .auth-buttons a:hover {
-  background-color: #007bff;
+  background-color: #103d5a;
   color: #fff;
 }
 
@@ -111,45 +104,6 @@ nav ul li a:hover {
 
 .the_paragraph{
   display: inline;
-  margin-bottom: ;
-}
-
-/* Profile Card Styles (Fixed on the left side) */
-.profile_card {
-  position: fixed;
-  top: 140px; /* Below the navbar */
-  left: 20px;
-  width: 200px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.profile_card img {
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.profile_card p {
-  margin: 5px 0;
-  font-size: 1rem;
-}
-
-
-.task-bar button {
-  background: #1172da;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.task-bar button:hover {
-  background: #0056b3;
 }
 
 .main_container{
@@ -165,7 +119,7 @@ nav ul li a:hover {
 }
 
 .post-section h2 {
-  color: #007bff;
+  color: #103d5a;
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
@@ -180,7 +134,7 @@ nav ul li a:hover {
 }
 
 #post-form button {
-  background: #007bff;
+  background: #103d5a;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -196,7 +150,7 @@ nav ul li a:hover {
 #posts-container {
   margin-top: 20px;
   text-align: right;
-  background: #f1f1f1;
+  background: #f5f3f3;
   padding: 20px;
   border-radius: 10px;
   width: 80%;
@@ -212,14 +166,12 @@ h3 {
 }
 
 .post-item {
-  border-bottom: 1px solid #ccc;
-  padding: 10px 0;
+  border-radius: 14px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;  padding: 10px 0;
+  background-color: rgb(181, 181, 181);
+  margin: 20px auto;
 }
 
-.post-item:last-child {
-  border-bottom: none;
-  
-}
 
 .post-item .meta-info {
   font-size: 0.9rem;
@@ -227,7 +179,9 @@ h3 {
 }
 
 
-.social-icons {
+
+
+.fotter {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -240,13 +194,13 @@ h3 {
   height: 30px ;
 }
 
-.social-icons a {
+.fotter a {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 50px;
   height: 50px;
-  background-color: #007bff;
+  background-color: #103d5a;
   color: white;
   border-radius: 50%;
   text-decoration: none;
@@ -254,12 +208,14 @@ h3 {
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.social-icons a:hover {
+.fotter a:hover {
   transform: scale(1.2);
   background-color: #0056b3;
 }
 
-.social-icons .copyright {
+
+
+.fotter .copyright {
   flex-basis: 100%;
   text-align: center;
   margin-top: 10px;
@@ -276,7 +232,7 @@ h3 {
       align-items: center;
   }
 
-  .social-icons a {
+  .fotter a {
       width: 40px;
       height: 40px;
       font-size: 1.2rem;

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html lang="ar">
-
+ 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>صفحة الرئيسية</title>
-    {% load static %}
+    <!-- {% load static %} -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="download (1).png" />
     <link rel="stylesheet" href="style_user_das.css" />
     <!-- <link rel="stylesheet" href="{% static 'CSS/style_user_das.css'%}"> -->
     <link rel="stylesheet" href="style_user_das.css">
 </head>
-
+ 
 <body>
     <header>
         <div class="model_navbar">
@@ -25,10 +26,18 @@
                     <li><a href="#">خدمات محترف</a></li>
                     <li><a href="#">من نحن</a></li>
                     <li><a href="#">اتصل بنا</a></li>
-                    <li><img src="https://via.placeholder.com/100" alt="User profile picture" /></li>
-                    <li>
-                        <p>اسم: محمد علي</p>
-                    </li>
+                    <li>   <div class="sidebar">
+                        <div class="profile-pic" id="profile-pic"></div>
+                        <div class="icons-container" id="icons-container">
+                            <div class="separator"></div>
+                            <div class="icon"><i class="fas fa-comment"></i></div>
+                            <div class="icon"><i class="fas fa-sliders-h"></i></div>
+                            <div class="icon">
+                                <i class="fas fa-bell"></i>
+                                <span class="badge">18</span>
+                            </div>
+                        </div>
+                    </div> </li>
                 </ul>
             </nav>
             <div class="auth-buttons navbar-item">
@@ -36,7 +45,7 @@
             </div>
         </div>
     </header>
-
+ 
     <div class="main_container">
         <div class="post-section">
             <h2>أنشئ منشورًا جديدًا</h2>
@@ -56,6 +65,7 @@
                         </div>
                     </div>
                 </div>
+   
                 <div class="post-item">
                     <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture"/>
                     <span class="meta-info">تم الإنجاز بواسطة: أحمد ياسين | بتاريخ: 2024-11-15</span>
@@ -65,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="social-icons">
+    <div class="fotter">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-linkedin-in"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
@@ -73,7 +83,7 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
         <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
-    </div>
+    <script src="script_user_das.js"></script>
 </body>
-
+ 
 </html>
