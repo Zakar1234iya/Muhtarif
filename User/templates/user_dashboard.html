@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html lang="ar">
- 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>صفحة الرئيسية</title>
-    <!-- {% load static %} -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="user_dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="download (1).png" />
-    <link rel="stylesheet" href="style_user_das.css" />
-    <!-- <link rel="stylesheet" href="{% static 'CSS/style_user_das.css'%}"> -->
     <link rel="stylesheet" href="style_user_das.css">
 </head>
  
@@ -26,25 +20,29 @@
                     <li><a href="#">خدمات محترف</a></li>
                     <li><a href="#">من نحن</a></li>
                     <li><a href="#">اتصل بنا</a></li>
-                    <li>   <div class="sidebar">
-                        <div class="profile-pic" id="profile-pic"></div>
-                        <div class="icons-container" id="icons-container">
-                            <div class="separator"></div>
-                            <div class="icon"><i class="fas fa-comment"></i></div>
-                            <div class="icon"><i class="fas fa-sliders-h"></i></div>
-                            <div class="icon">
-                                <i class="fas fa-bell"></i>
-                                <span class="badge">18</span>
+                    <li>
+                        <div class="sidebar">
+                            <div class="profile-pic" id="profile-pic"></div>
+                            <div class="icons-container" id="icons-container">
+                                <div class="separator"></div>
+                                <div class="icon"><i class="fas fa-comment"></i></div>
+                                <div class="icon"><i class="fas fa-sliders-h"></i></div>
+                                <div class="icon">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="badge">18</span>
+                                </div>
                             </div>
                         </div>
-                    </div> </li>
+                    </li>
                 </ul>
             </nav>
             <div class="auth-buttons navbar-item">
                 <a href="#" class="logout-btn">تسجيل الخروج </a>
             </div>
         </div>
+ 
     </header>
+ 
  
     <div class="main_container">
         <div class="post-section">
@@ -56,7 +54,7 @@
             <h3>المنشورات:</h3>
             <div id="posts-container">
                 <div class="post-item">
-                    <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture"/>
+                    <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
                     <span class="meta-info"> بتاريخ: 2024-11-15</span>
                     <p>اكتب استفسارك بخصوص اي مجال </p>
                     <div>
@@ -65,12 +63,12 @@
                         </div>
                     </div>
                 </div>
-   
+ 
                 <div class="post-item">
-                    <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture"/>
+                    <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
                     <span class="meta-info">تم الإنجاز بواسطة: أحمد ياسين | بتاريخ: 2024-11-15</span>
                     <p class="the_paragraph">تم الإنجاز هذه المهمه بواسطة </p>
-                    <img class="freelancer_pic" src="https://via.placeholder.com/100" alt="User profile picture"/>
+                    <img class="freelancer_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
                 </div>
             </div>
         </div>
@@ -83,7 +81,10 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
         <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
-    <script src="script_user_das.js"></script>
+    </div>
+    <script src="script_user_das.js">
+ 
+    </script>
 </body>
  
 </html>
