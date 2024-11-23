@@ -116,19 +116,20 @@
                 <h2 class="text-2xl font-semibold mb-4">انشاء حساب</h2>
 
                 <!-- User/Freelancer Selection -->
-                <div class="mb-4">
-                    <label for="user-freelancer" class="block text-gray-700">هل تريد التسجيل كـ</label>
-                    <select id="user-freelancer" class="w-full border border-gray-400 p-2 rounded">
-                        <option value="" disabled selected>اختر نوع التسجيل</option>
-                        <option value="user">مستخدم</option>
-                        <option value="freelancer">مستقل</option>
-                    </select>
-                </div>
+         
 
                 <!-- Form Content Wrapper with Scroll -->
                 <div class="form-content-wrapper">
                     <form method="post" action="/register/">
                         {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="user-freelancer" class="block text-gray-700">هل تريد التسجيل كـ</label>
+                            <select id="user-freelancer" class="w-full border border-gray-400 p-2 rounded" name="user_type">
+                                <option value="" disabled selected>اختر نوع التسجيل</option>
+                                <option value="user">مستخدم</option>
+                                <option value="freelancer">حرفي حر(محترف)</option>
+                            </select>
+                        </div>
                         <div class="mb-4">
                             <label for="fname" class="block text-gray-700">الاسم الاول</label>
                             <input type="text" class="w-full border border-gray-400 p-2 rounded" id="fname" name="fname"
@@ -169,7 +170,7 @@
 
                         <div class="mb-4">
                             <label for="phone" class="block text-gray-700">رقم الهاتف</label>
-                            <input type="text" class="w-full border border-gray-400 p-2 rounded" id="phone" name="phone"
+                            <input type="text" class="w-full border border-gray-400 p-2 rounded" id="phone" name="phone_number"
                                 required>
                         </div>
 
@@ -191,7 +192,7 @@
             <!-- Login Form -->
             <div class="login" id="login">
                 <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
-                <form method="post" action="/login/">
+                <form method="post" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700">بريد الكتروني</label>

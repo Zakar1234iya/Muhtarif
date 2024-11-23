@@ -1,13 +1,14 @@
 from django.db import models
+import threading
+
 
 class Address(models.Model):
     address_id = models.SmallIntegerField(primary_key=True)
     address_name = models.CharField(max_length=50)
 
-    @classmethod
-    def get_all_addresses(cls):
-        return cls.objects.all()
-
+    def get_all_addresses():
+        return Address.objects.all()
+    
 def add_address():
     addresses = [
         {"address_id": 1, "address_name": "جنين"},
@@ -22,20 +23,19 @@ def add_address():
         {"address_id": 10, "address_name": "بيت لحم"},
         {"address_id": 11, "address_name": "الخليل"},
     ]
-
+ 
     for address in addresses:
-        obj, created = Address.objects.get_or_create(
-            address_id=address['address_id'],
-            defaults={'address_name': address['address_name']}
-        )
-        if created:
+        created_address = Address.objects.filter(address_id=address['address_id'], address_name=address['address_name'])
+        if not created_address.exists():
+            Address.objects.create(address_id=address['address_id'], address_name=address['address_name'])
             print(f"Created new address: {address['address_name']}")
         else:
             print(f"Address already exists: {address['address_name']}")
+def zak(delay=5):
+    timer = threading.Timer(delay, add_address)
+    timer.start()
 
-# Call the add_address function
-add_address()
-
+# zak()
 
 
 # class Freelancer(models.Model):

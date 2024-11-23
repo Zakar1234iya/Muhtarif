@@ -38,7 +38,7 @@
                 </ul>
             </nav>
             <div class="auth-buttons navbar-item">
-                <a href="#" class="logout-btn">تسجيل الخروج </a>
+                <a href="{% url 'logout' %}" class="logout-btn">تسجيل الخروج </a>
             </div>
         </div>
     </header>
@@ -47,27 +47,32 @@
     <div class="main_container">
         <div class="post-section">
             <h2>أنشئ منشورًا جديدًا</h2>
-            <form id="post-form" action="" method="post">
-                <input type="text" placeholder="اكتب منشورك هنا...">
+            <form id="post-form" action="{% url 'create_post' %}" method="post">
+                {% csrf_token %}
+                <input type="text" placeholder="اكتب منشورك هنا..." name="content">
                 <button type="submit">نشر</button>
             </form>
             <h3>المنشورات:</h3>
             <div id="posts-container">
-                <div class="post-item">
-                    <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
-                    <span class="meta-info"> بتاريخ: 2024-11-15</span>
-                    <p>اكتب استفسارك بخصوص اي مجال </p>
-                    <div>
-                        <div class="comment-icon">
-                            <i class="fas fa-comment"></i>
+                {% for post in posts %}
+                    <div class="post-item">
+                        <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
+                        <span class="meta-info">{{ post.creator.fname}}</span>
+                        <span class="meta-info"> بتاريخ: {{ post.created_at }}</span>
+                        <p>{{ post.content }}</p>
+                        <div>
+                            <div class="comment-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
  
                 <div class="post-item">
                     <img class="user_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
                     <span class="meta-info">تم الإنجاز بواسطة: أحمد ياسين | بتاريخ: 2024-11-15</span>
                     <p class="the_paragraph">تم الإنجاز هذه المهمه بواسطة </p>
+                    <button>وظف </button>
                     <img class="freelancer_pic" src="https://via.placeholder.com/100" alt="User profile picture" />
                 </div>
             </div>

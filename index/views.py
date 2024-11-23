@@ -1,18 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from User.models import User  # Import User model
-from Freelancer.models import Freelancer, Profession  # Import Freelancer and Profession models
+from Freelancer.models import Freelancer, Profession  
 from django.contrib import messages
 from django.http import JsonResponse
 from .models import *
 import bcrypt
 from .models import Address
 
-
 def index(request):
-    professions = Profession.get_all_professions()
-    addresses = Address.get_all_addresses()
-    return render(request, 'index.html', {'professions': professions, 'addresses': addresses})
+    context = {
+        'professions': Profession.get_all_professions(),
+        'addresses': Address.get_all_addresses()
+    }
+    return render(request, 'index.html', context)
+
 
 
 def service(request):
@@ -20,25 +22,26 @@ def service(request):
 
 def register(request):
     if request.method == 'POST':
-        user_type = request.POST.get('user_type')  # Use .get() to avoid MultiValueDictKeyError
+        user_type = request.POST.get('user_type')  
         
-        if not user_type:  # Handle the case where user_type is not sent
-            messages.error(request, "User type is required.", extra_tags='register')
+        errors = User.objects.basic_validator(request.POST)
+        if errors:
+            for error in errors.values():
+                messages.error(request, error, extra_tags='register')
             return redirect('/')
-
         if user_type == 'user':
-            errors = User.objects.basic_validator(request.POST)
-            if errors:
-                for error in errors.values():
-                    messages.error(request, error, extra_tags='register')
-                return redirect('/')
-            User.objects.add_user(request.POST)
+            user = User.objects.add_user(request.POST)
+            request.session['id'] = user.id
+            request.session['type'] = 'user'
+            request.session['fname'] = user.fname
+            return redirect('user_dashboard')
         elif user_type == 'freelancer':
-            Freelancer.objects.add_freelancer(request.POST)
-        
-        messages.success(request, "Registration successful! Please log in.", extra_tags='register')
-        return redirect('/')
-    return render(request, 'index.html')
+            user = Freelancer.objects.create_freelancer(request.POST)
+            request.session['id'] = user.id
+            request.session['type'] = 'freelancer'
+            request.session['fname'] = user.fname
+            return redirect('freelancer_dashboard')
+    return render('/')
 
 
 def login(request):
@@ -47,18 +50,21 @@ def login(request):
         password = request.POST['password']
         user = User.objects.filter(email=email).first()
         freelancer = Freelancer.objects.filter(email=email).first()
-
+        
         if user and bcrypt.checkpw(password.encode(), user.password.encode()):
+            print('ul')
             request.session['id'] = user.id
             request.session['type'] = 'user'
             request.session['fname'] = user.fname
-            return redirect('/')
+            return redirect('user_dashboard')
         elif freelancer and bcrypt.checkpw(password.encode(), freelancer.password.encode()):
+            print('fl')
             request.session['id'] = freelancer.id
             request.session['type'] = 'freelancer'
             request.session['fname'] = freelancer.fname
-            return redirect('/')
+            return redirect('freelancer_dashboard')
         else:
+            print('error')
             messages.error(request, "Invalid email or password", extra_tags='login')
             return redirect('/')
 

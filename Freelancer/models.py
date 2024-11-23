@@ -79,11 +79,13 @@ class FreelancerManager(models.Manager):
         return freelancer
 
 class Profession(models.Model):
-    proid = models.SmallIntegerField(primary_key=True)
+    proid = models.SmallIntegerField(primary_key=True)  # Set as primary key
     protag = models.CharField(max_length=50)
 
-    def get_all_professions(cls):
-        return cls.objects.all()
+    
+    def get_all_professions():
+        return Profession.objects.all()
+
 
 def add_pro():
     professions = [
@@ -124,11 +126,17 @@ class Freelancer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
+    profession = models.ForeignKey(Profession, on_delete=models.CASCADE)  
+    rating_total = models.PositiveIntegerField(default=0)
+    rating_count = models.PositiveIntegerField(default=0)
     objects = FreelancerManager()
-
     def validate_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())
 
+    def average_rating(self):
+        if self.rating_count == 0:
+            return 0
+        return self.rating_total / self.rating_count
+
 # Call the delayed_add_pro function
-delayed_add_pro()
+# delayed_add_pro()
