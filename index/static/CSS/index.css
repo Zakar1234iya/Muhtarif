@@ -60,17 +60,8 @@ nav ul li a {
     padding: 50px 0;
     background-color: #f8f9fa;
 }
-.hero-image{
-    margin-top: 50px;  
-}
-.img-worker{
-    /* width : 500px; */
-    border: none;
-    margin: 0;
-    padding: 0;
-
-}
 .hero img {
+    margin-top: 100px;
     max-width: 100%;
     height: auto;
 }
@@ -188,7 +179,7 @@ nav ul li a {
     align-items: center;
     width: 50px;
     height: 50px;
-    background-color: #007bff;
+    background-color: #103d5a;
     color: white;
     border-radius: 50%;
     text-decoration: none;
@@ -403,4 +394,55 @@ body {
         padding: 10px 15px;
         font-size: 0.9rem;
     }
+}
+
+
+/* Style for the close button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+    color: #000;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.close-btn:hover {
+    color: red; /* Change color on hover */
+}
+
+/* Make the modal appear centered on the page */
+.register_login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: block; /* Initially visible */
+    z-index: 999;
+}
+/* Wrapper for the form content to enable scrolling */
+.form-content-wrapper {
+    max-height: 400px;  /* You can adjust the height as needed */
+    overflow-y: auto;   /* Enable vertical scrolling */
+    padding-right: 10px; /* Add padding for the scrollbar */
+}
+
+/* Optional: Style the scrollbar for better visibility */
+.form-content-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-content-wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.form-content-wrapper::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
 }

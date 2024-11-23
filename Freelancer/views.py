@@ -3,3 +3,5 @@ from django.shortcuts import render
 def index(request):
     return render(request , 'dashbord.html')
 
+def profile(request):
+    return render(request , 'freelancer_profile.html')

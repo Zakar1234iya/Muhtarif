@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <title>الأسئلة الشائعة</title>
+  {% load static %}
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'CSS/fqa.css' %}">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">الرئيسية</a></li>
+          <li><a href="/service">خدماتنا</a></li>
+          <li><a href="/About_us/">من نحن</a></li>
+          <li><a href="/contact_us/">اتصل بنا</a></li>
+        </ul>
+      </nav>
+  
+    </div>
+  </header>
+
+  <div class="main">
+      <div class="bg-gray-100 p-4 rounded mb-4" class="questions">
+          <h2 class="font-bold text-lg mb-2">ما هي ساعات عمل المحترف</h2>
+          <p>موقع محترف متاح على مدار الساعة طوال أيام الأسبوع. ومع ذلك، يعتمد الموافقة على الطلب على توافر الحرفي في منطقتك في ذلك الوقت.</p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded mb-4" class="questions">
+          <h2 class="font-bold text-lg mb-2">كم تكلفه الكشف؟</h2>
+          <p>تكلفة الكشف علينا، وهي مجانية تمامًا.</p>
+      </div>
+      <div class="bg-gray-100 p-4 rounded mb-4" class="questions">
+          <h2 class="font-bold text-lg mb-2">هل يوجد ضمان على الخدمات؟</h2>
+          <p>بالطبع، يوجد ضمان لمدة ثلاثين يومًا على جميع الخدمات. في حال عودة المشكلة، تواصل معنا ولا داعي للقلق.</p>
+      </div>
+  </div>
+
+  <fotter>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+      <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
+    </div>
+</body>
+
+</html>

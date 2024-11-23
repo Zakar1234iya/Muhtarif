@@ -8,26 +8,25 @@
     {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'style-services.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style-services.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
 </head>
 
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo">
+                <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">الرئيسية</a></li>
-                    <li><a href="#">من نحن</a></li>
-                    <li><a href="#">خدمات فني</a></li>
-                    <li><a href="#">سجل معنا</a></li>
-                    <li><a href="#">مدونتنا</a></li>
-                    <li><a href="#">الأسئلة الشائعة</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/About_us/">من نحن</a></li>
+                    <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+                    <li><a href="/contact_us/">اتصل بنا</a></li>
                 </ul>
             </nav>
+            <div class="language-selector"></div>
             <div class="auth-buttons">
                 <a href="#" class="login-btn">تسجيل الدخول</a>
                 <a href="#" class="register-btn">إنشاء حساب</a>
@@ -35,64 +34,163 @@
         </div>
     </header>
     <div class="main">
-        <div class="service-box">
-            <i class="fas fa-tools"></i>
-            <p>نجارة</p>
-        </div>
-        <!-- <div class="service-box">
-            <i class="fas fa-satellite-dish"></i>
-            <p>ستالايت</p>
-        </div> -->
-        <div class="service-box">
-            <i class="fas fa-home"></i>
+        <div class="service-box" data-proid="9" onclick="fetchFreelancers(this)">
+            <i class="fas fa-square"></i>
             <p>بلاط</p>
         </div>
+        <div class="service-box" data-proid="1" onclick="fetchFreelancers(this)">
+            <i class="fas fa-satellite-dish"></i>
+            <p>ستالايت</p>
+        </div>
         <div class="service-box">
-            <i class="fas fa-bicycle"></i>
+            <i class="mdi mdi-anvil" data-proid="11" onclick="fetchFreelancers(this)" ></i>
+            <p>حدادة</p>
+        </div>
+        <div class="service-box" data-proid="3" onclick="fetchFreelancers(this)">
+            <i class="fas fa-faucet"></i>
             <p>سباكة</p>
         </div>
-        <!-- <div class="service-box">
-            <i class="fas fa-truck"></i>
-            <p>نقل</p>
-        </div> -->
-        <div class="service-box">
+        <div class="service-box" data-proid="8" onclick="fetchFreelancers(this)">
+            <i class="fas fa-chair"></i>
+            <p>نجارة</p>
+        </div>
+        <div class="service-box" data-proid="4" onclick="fetchFreelancers(this)">
             <i class="fas fa-plug"></i>
             <p>كهرباء</p>
         </div>
-        <!-- <div class="service-box">
-            <i class="fas fa-bug"></i>
-            <p>مكافحة حشرات</p>
-        </div> -->
-        <div class="service-box">
-            <i class="fas fa-wind"></i>
-            <p>تكييف</p>
+        <div class="service-box" data-proid="10" onclick="fetchFreelancers(this)">
+            <i class="fas fa-window-maximize"></i>
+            <p>زجاج والمنيوم</p>
         </div>
-        <div class="service-box">
+        <div class="service-box" data-proid="5" onclick="fetchFreelancers(this)">
+            <i class="fas fa-wind"></i>
+            <p>تكييف وتبريد</p>
+        </div>
+        <div class="service-box" data-proid="6" onclick="fetchFreelancers(this)">
             <i class="fas fa-paint-roller"></i>
             <p>دهان</p>
         </div>
-        <div class="service-box">
-            <i class="fas fa-broom"></i>
-            <p>تنظيف</p>
+        <div class="service-box" data-proid="2" onclick="fetchFreelancers(this)">
+            <i class="fas fa-blender"></i>
+            <p>اجهزة منزلية</p>
         </div>
-        <div class="service-box">
-            <i class="fas fa-mobile-alt"></i>
-            <p>صيانة جوال</p>
+        <div class="service-box" data-proid="12" onclick="fetchFreelancers(this)">
+            <i class="fas fa-paint-brush"></i>
+            <p>ديكور وجبصين</p>
         </div>
-        <div class="service-box">
+        <div class="service-box" data-proid="7" onclick="fetchFreelancers(this)">
             <i class="fas fa-camera"></i>
             <p>كاميرات مراقبة</p>
         </div>
-        
+
     </div>
     <div class="social-icons">
-        <h6 class="copyright">Support</h6>
         <a href="#"><i class="fab fa-facebook-f"></i></a>
         <a href="#"><i class="fab fa-linkedin-in"></i></a>
         <a href="#"><i class="fab fa-instagram"></i></a>
         <a href="#"><i class="fab fa-tiktok"></i></a>
-        <h6 class="copyright">جميع الحقوق محفوظة</h6>
+        <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
+    <!-- Register/Login Modal -->
+<div class="register_login" id="register_login">
+    <button class="close-btn" id="close-modal">X</button>
+    
+    <div class="flex justify-between mb-8">
+        <!-- Register Form (User/Freelancer selection) -->
+        <div class="w-1/2 pr-4" id="register">
+            <h2 class="text-2xl font-semibold mb-4">انشاء حساب</h2>
+
+            <!-- User/Freelancer Selection -->
+            <div class="mb-4">
+                <label for="user-freelancer" class="block text-gray-700">هل تريد التسجيل كـ</label>
+                <select id="user-freelancer" class="w-full border border-gray-400 p-2 rounded">
+                    <option value="" disabled selected>اختر نوع التسجيل</option>
+                    <option value="user">مستخدم</option>
+                    <option value="freelancer">مستقل</option>
+                </select>
+            </div>
+
+            <!-- Form Content Wrapper with Scroll -->
+            <div class="form-content-wrapper">
+                <form method="post" action="/register/">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="fname" class="block text-gray-700">الاسم الاول</label>
+                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="fname" name="fname" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="lname" class="block text-gray-700">الاسم الاخير</label>
+                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="lname" name="lname" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-700">البريد الالكتروني</label>
+                        <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email" required>
+                    </div>
+                    
+                    <!-- Job Category (Only for Freelancer) -->
+                    <div id="job-category" class="mb-4" style="display: none;">
+                        <label for="job_category" class="block text-gray-700">حدد المهنة</label>
+                        <select name="job_category" class="w-full border border-gray-400 p-2 rounded">
+                            <option value="" disabled selected>اختر المهنة</option>
+                            {% for profession in professions %}
+                                <option value="{{ profession.proid }}">{{ profession.protag }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <!-- Address -->
+                    <div class="mb-4">
+                        <label for="address" class="block text-gray-700">حدد العنوان</label>
+                        <select name="address" class="w-full border border-gray-400 p-2 rounded">
+                            <option value="" disabled selected>اختر العنوان</option>
+                            {% for address in addresses %}
+                                <option value="{{ address.address_id }}">{{ address.address_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="phone" class="block text-gray-700">رقم الهاتف</label>
+                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="phone" name="phone" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="block text-gray-700">كلمة المرور</label>
+                        <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="re_password" class="block text-gray-700">تاكيد كلمة المرور</label>
+                        <input type="password" class="w-full border border-gray-400 p-2 rounded" id="re_password" name="re_password" required>
+                    </div>
+                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">انشاء حساب</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div class="login" id="login">
+            <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
+            <form method="post" action="/login/">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700">بريد الكتروني</label>
+                    <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email" required>
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="block text-gray-700">كلمة السر</label>
+                    <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password" required>
+                </div>
+                <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">تسجيل الدخول</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'scripts.js' %}"></script>
+
 </body>
 
 </html>

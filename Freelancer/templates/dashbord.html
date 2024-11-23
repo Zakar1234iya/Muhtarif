@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
-  <link rel="stylesheet" href="{% static 'freelancer.css' %}">
+  <link rel="stylesheet" href="{% static 'CSS/freelancer.css' %}">
   <title>صفحة المستخدم</title>
 </head>
 <body>
@@ -15,16 +15,16 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#">الرئيسية</a></li>
-                <li><a href="#">خدماتنا</a></li>
-                <li><a href="#">من نحن</a></li>
-                <li><a href="#">الأسئلة الشائعة</a></li>
-                <li><a href="#">اتصل بنا</a></li>
+              <li><a href="/">الرئيسية</a></li>
+              <li><a href="/service">خدماتنا</a></li>
+              <li><a href="/About_us/">من نحن</a></li>
+              <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+              <li><a href="/contact_us/">اتصل بنا</a></li>
             </ul>
         </nav>
         <div class="language-selector"></div>
         <div class="auth-buttons">
-            <a href="#" class="login-btn">تسجيل خروج</a>
+            <a href="/" class="login-btn">تسجيل خروج</a>
         </div>
     </div>
 </header>

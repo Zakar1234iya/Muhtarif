@@ -1,3 +1,49 @@
 from django.db import models
 
-# Create your models here.
+class Address(models.Model):
+    address_id = models.SmallIntegerField()
+    address_name = models.CharField(max_length=50)
+
+
+def add_address():
+    addresses = [
+        {"address_id": 1, "address_name": "جنين"},
+        {"address_id": 2, "address_name": "طوباس"},
+        {"address_id": 3, "address_name": "تابلس"},
+        {"address_id": 4, "address_name": "طولكرم"},
+        {"address_id": 5, "address_name": "قلقيلية"},
+        {"address_id": 6, "address_name": "سلفيت"},
+        {"address_id": 7, "address_name": "رام الله"},
+        {"address_id": 8, "address_name": "أريحا"},
+        {"address_id": 9, "address_name": "الفدس"},
+        {"address_id": 10, "address_name": "بيت لحم"},
+        {"address_id": 11, "address_name": "الخليل"},
+    ]
+    
+    for address in addresses:
+        Address.objects.create(**address)
+
+
+
+# class Freelancer(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     # Add any other fields for freelancer if needed
+#     def __str__(self):
+#         return self.user.username
+
+# class Chat(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_chats')
+#     freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE, related_name='freelancer_chats')
+#     created_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return f"Chat between {self.user.username} and {self.freelancer.user.username}"
+
+# class Message(models.Model):
+#     chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
+#     sender = models.ForeignKey(User, on_delete=models.CASCADE)
+#     content = models.TextField()
+#     sent_at = models.DateTimeField(auto_now_add=True)
+
+#     def __str__(self):
+#         return f"Message from {self.sender.username} at {self.sent_at}"

@@ -42,11 +42,28 @@ $(document).ready(function () {
         closeModal();
     });
 
-    // // Close modal when clicking outside the content
-    // $(document).mouseup(function (e) {
-    //     var modalContent = $(".modal-content");
-    //     if (!modalContent.is(e.target) && modalContent.has(e.target).length === 0) {
-    //         closeModal();
-    //     }
-    // });
+    // Show job category if freelancer is selected
+    $('#user-freelancer').change(function () {
+        if ($(this).val() == 'freelancer') {
+            $('#job-category').show();
+        } else {
+            $('#job-category').hide();
+        }
+    });
 });
+
+// Function to fetch freelancers (make sure it's in the global scope)
+function fetchFreelancers(element) {
+    const proid = element.getAttribute('data-proid');
+    const url = `/freelancers?profession_id=${proid}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Handle the data, e.g., display it on the page
+        })
+        .catch(error => {
+            console.error('Error fetching freelancers:', error);
+        });
+}
