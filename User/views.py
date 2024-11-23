@@ -5,7 +5,7 @@ def user_dashboard(request):
     return render(request, 'user_dashboard.html')  
 
 # View to render the user profile based on user ID
-def user_profile(request, id):
+def user_profile(request):
     return render(request, 'user_profile.html')  
 
 def chat(request, id):
