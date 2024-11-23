@@ -22,17 +22,20 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-left: 300px;
+
 }
 
 .logo img {
   height: 100px;
   width: 100px;
 }
+nav{
+  padding-left: 200px;
 
+}
 nav ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   gap: 20px;
 }
