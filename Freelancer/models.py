@@ -82,6 +82,9 @@ class Profession(models.Model):
     proid = models.SmallIntegerField(primary_key=True)
     protag = models.CharField(max_length=50)
 
+    def get_all_professions(cls):
+        return cls.objects.all()
+
 def add_pro():
     professions = [
         {"proid": 1, "protag": "فني ستلايت"},

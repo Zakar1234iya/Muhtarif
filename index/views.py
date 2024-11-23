@@ -6,11 +6,14 @@ from django.contrib import messages
 from django.http import JsonResponse
 from .models import *
 import bcrypt
-
+from .models import Address
 
 
 def index(request):
-    return render(request , 'index.html')
+    professions = Profession.get_all_professions()
+    addresses = Address.get_all_addresses()
+    return render(request, 'index.html', {'professions': professions, 'addresses': addresses})
+
 
 def service(request):
     return render(request , 'Services.html')

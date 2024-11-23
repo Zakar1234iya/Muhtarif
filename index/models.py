@@ -1,9 +1,12 @@
 from django.db import models
 
-
 class Address(models.Model):
     address_id = models.SmallIntegerField(primary_key=True)
     address_name = models.CharField(max_length=50)
+
+    @classmethod
+    def get_all_addresses(cls):
+        return cls.objects.all()
 
 def add_address():
     addresses = [
@@ -19,7 +22,7 @@ def add_address():
         {"address_id": 10, "address_name": "بيت لحم"},
         {"address_id": 11, "address_name": "الخليل"},
     ]
-    
+
     for address in addresses:
         obj, created = Address.objects.get_or_create(
             address_id=address['address_id'],
