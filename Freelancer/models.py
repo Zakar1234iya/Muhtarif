@@ -1,8 +1,7 @@
 from django.db import models
 from index.models import Address
-from django.core.exceptions import ValidationError
 import bcrypt
-
+import threading
 
 class FreelancerManager(models.Manager):
     def basic_validator(self, postdata):
@@ -79,40 +78,39 @@ class FreelancerManager(models.Manager):
         freelancer.save()
         return freelancer
 
-
 class Profession(models.Model):
-    proid = models.SmallIntegerField(unique=True)  # Unique identifier for profession
-    protag = models.CharField(max_length=50)  # Profession name or tag
+    proid = models.SmallIntegerField(primary_key=True)
+    protag = models.CharField(max_length=50)
 
-    def __str__(self):
-        return self.protag
+def add_pro():
+    professions = [
+        {"proid": 1, "protag": "فني ستلايت"},
+        {"proid": 2, "protag": "فني صيانة أجهزة منزلية"},
+        {"proid": 3, "protag": "فني سباكة"},
+        {"proid": 4, "protag": "فني كهرباء"},
+        {"proid": 5, "protag": "فني تكييف وتبريد"},
+        {"proid": 6, "protag": "فني دهان"},
+        {"proid": 7, "protag": "فني كاميرات"},
+        {"proid": 8, "protag": "فني نجارة"},
+        {"proid": 9, "protag": "فني بلاط"},
+        {"proid": 10, "protag": "فني زجاج والمنوم"},
+        {"proid": 11, "protag": "فني حدادة"},
+        {"proid": 12, "protag": "فني جبصين"},
+    ]
 
-    @staticmethod
-    def add_pro():
-        professions = [
-            {"proid": 1, "protag": "فني ستلايت"},
-            {"proid": 2, "protag": "فني صيانة أجهزة منزلية"},
-            {"proid": 3, "protag": "فني سباكة"},
-            {"proid": 4, "protag": "فني كهرباء"},
-            {"proid": 5, "protag": "فني تكييف وتبريد"},
-            {"proid": 6, "protag": "فني دهان"},
-            {"proid": 7, "protag": "فني كاميرات"},
-            {"proid": 8, "protag": "فني نجارة"},
-            {"proid": 9, "protag": "فني بلاط "},
-            {"proid": 10, "protag": "فني زجاج والمنوم"},
-            {"proid": 11, "protag": "فني حدادة "},
-            {"proid": 12, "protag": "فني جبصين"},
-        ]
-        
-        for profession in professions:
-            # Check if the profession already exists by proid
-            if not Profession.objects.filter(proid=profession['proid']).exists():
-                # If not, create a new Profession object
-                Profession.objects.create(proid=profession['proid'], protag=profession['protag'])
-                print(f"Added Profession: {profession['protag']}")
-            else:
-                print(f"Profession with proid {profession['proid']} already exists.")
+    for profession in professions:
+        obj, created = Profession.objects.get_or_create(
+            proid=profession['proid'],
+            defaults={'protag': profession['protag']}
+        )
+        if created:
+            print(f"Added Profession: {profession['protag']}")
+        else:
+            print(f"Profession with proid {profession['proid']} already exists.")
 
+def delayed_add_pro(delay=60):
+    timer = threading.Timer(delay, add_pro)
+    timer.start()
 
 class Freelancer(models.Model):
     fname = models.CharField(max_length=50)
@@ -125,5 +123,9 @@ class Freelancer(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
     objects = FreelancerManager()
+
     def validate_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())
+
+# Call the delayed_add_pro function
+delayed_add_pro()

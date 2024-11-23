@@ -1,9 +1,9 @@
 from django.db import models
 
-class Address(models.Model):
-    address_id = models.SmallIntegerField()
-    address_name = models.CharField(max_length=50)
 
+class Address(models.Model):
+    address_id = models.SmallIntegerField(primary_key=True)
+    address_name = models.CharField(max_length=50)
 
 def add_address():
     addresses = [
@@ -21,7 +21,17 @@ def add_address():
     ]
     
     for address in addresses:
-        Address.objects.create(**address)
+        obj, created = Address.objects.get_or_create(
+            address_id=address['address_id'],
+            defaults={'address_name': address['address_name']}
+        )
+        if created:
+            print(f"Created new address: {address['address_name']}")
+        else:
+            print(f"Address already exists: {address['address_name']}")
+
+# Call the add_address function
+add_address()
 
 
 
