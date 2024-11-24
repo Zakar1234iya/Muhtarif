@@ -106,9 +106,9 @@ def add_pro():
     ]
 
     for profession in professions:
-        created_address = Profession.objects.filter(proid=profession['proid'], profession=profession['protag'])
+        created_address = Profession.objects.filter(proid=profession['proid'], protag=profession['protag'])
         if not created_address.exists():
-            Profession.objects.create(proid=profession['proid'], profession=profession['protag'])
+            Profession.objects.create(proid=profession['proid'], protag=profession['protag'])
             print(f"Created new profession: {profession['protag']}")
         else:
             print(f"Profession already exists: {profession['protag']}")
