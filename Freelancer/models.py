@@ -141,5 +141,36 @@ class Freelancer(models.Model):
             return 0
         return self.rating_total / self.rating_count
 
-# Call the delayed_add_pro function
-# delayed_add_pro()
+def freelancer_post(request):
+    freelancer_id = request.session.get('id')
+    user_type = request.session.get('type')
+    
+    # Ensure the logged-in user is of the correct type (freelancer)
+    if not freelancer_id or user_type != 'freelancer':
+        # Redirect to a general page if the freelancer is not logged in or trying to access the wrong page
+        return redirect('/')
+    
+    # Retrieve the freelancer object by ID
+    freelancer = Freelancer.objects.get(id=freelancer_id)
+    
+    # Fetch posts created by users
+    posts = Post.objects.all().order_by('-created_at')
+    
+    if request.method == 'POST':
+        content = request.POST.get('comment_content')
+        post_id = request.POST.get('post_id')
+        post = Post.objects.get(id=post_id)
+        
+        # Create a new comment
+        comment = Comment(content=content, creator=freelancer, post=post)
+        comment.save()
+        messages.success(request, 'تم إضافة التعليق بنجاح!')
+        return redirect('freelancer_post')
+    
+    context = {
+        'freelancer': freelancer,
+        'posts': posts
+    }
+    
+    # Render the post template with the context data
+    return render(request, 'post.html', context)
