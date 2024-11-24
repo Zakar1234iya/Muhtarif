@@ -6,7 +6,35 @@ from index.models import Address  # Address is defined in the index app
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 
-# Manager for Posts
+
+
+class CommentManager(models.Manager):
+    def basic_validator(self, postData):
+        errors = {}
+        if len(postData['content']) < 1:
+            errors["content"] = "You cannot publish an empty comment."
+        return errors
+
+    def delete_comment(self, comment_id):
+        comment = Comment.objects.filter(id=comment_id).first()
+        if comment:
+            comment.delete()
+        else:
+            return "Comment does not exist."
+
+    def update_comment(self, comment, new_content):
+        comment.content = new_content
+        comment.save()
+
+    def create_comment(self, data):
+        return self.create(content=data['content'], creator=data['creator'], post=data['post'])
+
+    def get_post_comments(self, post):
+        return self.filter(post=post).order_by('-created_at')
+
+    def get_all_comments(self):
+        return self.all()
+
 class PostsManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
@@ -104,6 +132,15 @@ class Post(models.Model):
     def __str__(self):
         return f"Post by {self.creator.fname}: {self.content[:20]}..."
 
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = CommentManager()
+
+    def __str__(self):
+        return f"Comment by {self.creator.fname}: {self.content[:20]}..."
 
 # ChatSession Model
 class ChatSession(models.Model):
@@ -144,10 +181,4 @@ class ChatMessage(models.Model):
     def __str__(self):
         return f"{self.sender}: {self.text[:20]}..."
 
-
-
-
-    # return user info 
-    # def __str__(self):
-    #     return f"{self.fname} {self.lname} - {self.email}"
 

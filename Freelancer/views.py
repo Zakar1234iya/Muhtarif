@@ -6,6 +6,7 @@ from django.apps import apps
 from django.contrib import messages
 from User.models import User  
 import bcrypt
+from User.models import Post, Comment
 
 
 
@@ -159,7 +160,6 @@ def fetch_freelancers(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-
 def freelancer_post(request):
     freelancer_id = request.session.get('id')
     user_type = request.session.get('type')
@@ -170,20 +170,24 @@ def freelancer_post(request):
         return redirect('/')
     
     # Retrieve the freelancer object by ID
-    freelancer = Freelancer.objects.get(id=freelancer_id)
-    
+    freelancer = Freelancer.objects.filter(id=freelancer_id).first()
+    if not freelancer:
+        messages.error(request, 'Freelancer not found.')
+        return redirect('/')
+
     # Fetch posts created by users
     posts = Post.objects.all().order_by('-created_at')
     
     if request.method == 'POST':
         content = request.POST.get('comment_content')
         post_id = request.POST.get('post_id')
-        post = Post.objects.get(id=post_id)
-        
-        # Create a new comment
-        comment = Comment(content=content, creator=freelancer, post=post)
-        comment.save()
-        messages.success(request, 'تم إضافة التعليق بنجاح!')
+        post = Post.objects.filter(id=post_id).first()
+        if post:
+            # Create a new comment
+            comment = Comment.objects.create(content=content, creator=freelancer, post=post)
+            messages.success(request, 'تم إضافة التعليق بنجاح!')
+        else:
+            messages.error(request, 'Post not found.')
         return redirect('freelancer_post')
     
     context = {

@@ -19,7 +19,7 @@ def add_address():
         {"address_id": 6, "address_name": "سلفيت"},
         {"address_id": 7, "address_name": "رام الله"},
         {"address_id": 8, "address_name": "أريحا"},
-        {"address_id": 9, "address_name": "الفدس"},
+        {"address_id": 9, "address_name": "القدس"},
         {"address_id": 10, "address_name": "بيت لحم"},
         {"address_id": 11, "address_name": "الخليل"},
     ]
