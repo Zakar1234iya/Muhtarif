@@ -14,10 +14,15 @@ header {
    backdrop-filter: blur(10px);
 }
 
-.logout-btn btn-warning{
+
+#logout_btn_2{
+   color: #f8f9fa;
+   background-color: #fbb519;
+ }
+/* .logout-btn btn-warning{
    color: orange;
    background-color: orange;
-}
+} */
 .container {
    padding-top: 200px;
    margin: 0 auto;
@@ -167,7 +172,7 @@ header {
      padding: 20px;
      background-color: #f9f9f9;
      border-top: 2px solid #ddd;
-     margin-top: 15%;
+     margin-top: 50px;
   }
   .social-icons a {
      display: inline-flex;

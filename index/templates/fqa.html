@@ -26,7 +26,7 @@
 
         {% if request.session.id %}
         <!-- User is logged in, show logout button -->
-        <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
+        <a href="{% url 'logout' %}" class="logout-btn btn-warning" id = "logout_btn_2">تسجيل الخروج</a>
     {% else %}
         <!-- User is not logged in, show login and register buttons -->
         <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
