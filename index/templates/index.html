@@ -31,7 +31,7 @@
 
                 {% if request.session.id %}
                 <!-- User is logged in, show logout button -->
-                <a href="{% url 'logout' %}" class="logout-btn btn-warning" id = "logout_btn_2">تسجيل الخروج</a>
+                <a href="{% url 'logout' %}" class="logout-btn btn-warning" id="logout_btn_2">تسجيل الخروج</a>
                 {% else %}
                 <!-- User is not logged in, show login and register buttons -->
                 <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
@@ -206,46 +206,29 @@
                         <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">انشاء حساب</button>
                     </form>
                 </div>
-            </div>
 
-            <!-- Login Form -->
-            <div class="login" id="login">
-                <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
-                <form method="post" action="{% url 'login'%}">
-                    {% csrf_token %}
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700">بريد الكتروني</label>
-                        <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email"
-                            required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="block text-gray-700">كلمة السر</label>
-                        <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password"
-                            id="password" required>
-                    </div>
-                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">تسجيل الدخول</button>
-                </form>
+
+                <!-- Login Form -->
+                <div class="login" id="login">
+                    <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
+                    <form method="post" action="{% url 'login'%}">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700">بريد الكتروني</label>
+                            <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email"
+                                id="email" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="block text-gray-700">كلمة السر</label>
+                            <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password"
+                                id="password" required>
+                        </div>
+                        <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">تسجيل الدخول</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-   </div>
-   <div class="social-icons">
-    <a href="#"><i class="fab fa-facebook-f"></i></a>
-    <a href="#"><i class="fab fa-twitter"></i></a>
-    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-    <a href="#"><i class="fab fa-instagram"></i></a>
-    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-    <a href="#"><i class="fab fa-youtube"></i></a>
-    <a href="#"><i class="fab fa-snapchat-ghost"></i></a>
-    <a href="#"><i class="fab fa-tiktok"></i></a>
-    <a href="#"><i class="fab fa-facebook-messenger"></i></a>
-    <h6 class="copyright"> كل الحقوق محفوظة لموقع محترف 2024©</h6>
-</div>
-  </body>
- </html>
- </body>
-</html>
-
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
