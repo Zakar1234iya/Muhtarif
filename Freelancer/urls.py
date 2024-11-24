@@ -1,7 +1,10 @@
-from django.urls import *
+from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name='freelancer_dashboard'),
-    # path('profile', views.profile , name="profile")
-]
+    path('fetch/', views.fetch_freelancers, name='fetch-freelancers'),
+    path('profile/<int:freelancer_id>/', views.freelancer_profile, name='freelancer-profile'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

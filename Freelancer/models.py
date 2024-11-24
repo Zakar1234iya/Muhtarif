@@ -3,7 +3,9 @@ from index.models import Address
 import bcrypt
 import threading
 
+
 class FreelancerManager(models.Manager):
+
     def basic_validator(self, postdata):
         errors = {}
 
@@ -35,30 +37,30 @@ class FreelancerManager(models.Manager):
 
         return errors
 
-    def create_freelancer(self, postdata):
-        # Validate data and capture errors
-        errors = self.basic_validator(postdata)
+    def create_freelancer(self, data):
+        # Step 1: Validate the incoming data
+        errors = self.basic_validator(data)
         if errors:
-            return errors  # Return errors if validation fails
+            return errors  # Return validation errors if they exist
 
-        # Hash the password
-        hashed_password = bcrypt.hashpw(postdata['password'].encode(), bcrypt.gensalt()).decode()
+        # Step 2: Hash the password securely using bcrypt
+        hashed_password = bcrypt.hashpw(data['password'].encode(), bcrypt.gensalt()).decode()
 
-        # Retrieve Address and Profession objects
-        address = Address.objects.get(id=postdata['address_id'])
-        profession = Profession.objects.get(proid=postdata['profession_id'])
-
-        # Create Freelancer instance and save
+        # Step 3: Create the Freelancer object with validated data
         freelancer = self.create(
-            fname=postdata['fname'],
-            lname=postdata['lname'],
-            email=postdata['email'],
-            phone_number=postdata['phone_number'],
+            fname=data['fname'],
+            lname=data['lname'],
+            email=data['email'],
+            phone_number=data['phone_number'],
             password=hashed_password,
-            address=address,
-            profession=profession
+            address=data['address'],
+            profession=data['profession'],
+            profile_picture=data.get('profile_picture')  # If profile picture is optional
         )
-        return freelancer
+
+        return freelancer  # Return the newly created Freelancer object
+
+
 
     def edit_freelancer(self, freelancer_id, postdata):
         freelancer = self.get(id=freelancer_id)
@@ -129,6 +131,7 @@ class Freelancer(models.Model):
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)  
     rating_total = models.PositiveIntegerField(default=0)
     rating_count = models.PositiveIntegerField(default=0)
+    profile_picture = models.ImageField(upload_to='freelancer_profiles/', null=True, blank=True)
     objects = FreelancerManager()
     def validate_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())

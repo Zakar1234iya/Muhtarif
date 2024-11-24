@@ -1,9 +1,29 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse ,JsonResponse,Http404
 from .models import Freelancer, Address, Profession
+from Freelancer.models import Freelancer 
+from django.apps import apps
+from django.contrib import messages
+from User.models import User  
+
+# Other view functions here...
+
 
 def index(request):
-    return render(request , 'dashbord.html')
+    freelancer_id = request.session.get('id')
+    user_type = request.session.get('type')
+    
+    # Ensure the logged-in user is of the correct type (freelancer)
+    if not freelancer_id or user_type != 'freelancer':
+        # Redirect to a general page if the freelancer is not logged in or trying to access the wrong page
+        return redirect('/')
+    
+    freelancer = Freelancer.objects.get(id=freelancer_id)  # Retrieve the freelancer object by ID
+    context = {
+        'freelancer': freelancer
+    }
+    return render(request, 'dashbord.html', context)
+
 def add_freelancer(request):
     if request.method == 'POST':
         fname = request.POST.get('fname')
@@ -114,3 +134,51 @@ def edit_freelancer(request, freelancer_id):
             'addresses': Address.get_all_addresses()
         }
         return render(request, 'edit_freelancer.html', context)
+
+
+def freelancer_list(request):
+    profession_id = request.GET.get('profession_id')
+    if profession_id and profession_id.isdigit():
+        freelancers = Freelancer.objects.filter(job_category__proid=int(profession_id))
+    else:
+        freelancers = Freelancer.objects.all()
+
+    return render(request, 'freelancer/freelancer_list.html', {'freelancers': freelancers})
+
+
+def freelancer_profile(request, freelancer_id):
+    freelancer = Freelancer.objects.filter(id=freelancer_id).first()
+    if not freelancer:
+        raise Http404("Freelancer not found")
+
+    return render(request, 'freelancer/freelancer_profile.html', {'freelancer': freelancer})
+
+
+def fetch_freelancers(request):
+    profession_id = request.GET.get('profession_id')
+
+    # Check for valid profession_id
+    if not profession_id or not profession_id.isdigit():
+        return JsonResponse({'error': 'Invalid profession_id'}, status=400)
+
+    # Fetch freelancers (ensure no redirect is happening)
+    try:
+        profession = Profession.objects.filter(proid=profession_id).first()
+        if not profession:
+            return JsonResponse({'freelancers': []})
+
+        freelancers = Freelancer.objects.filter(profession=profession)
+        freelancers_data = [
+            {
+                'id': freelancer.id,
+                'fname': freelancer.fname,
+                'lname': freelancer.lname,
+                'email': freelancer.email,
+                'photo': freelancer.photo.url if freelancer.photo else None,
+            }
+            for freelancer in freelancers
+        ]
+        return JsonResponse({'freelancers': freelancers_data})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+

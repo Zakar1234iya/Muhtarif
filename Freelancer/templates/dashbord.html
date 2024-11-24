@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% load static %}
   <link rel="stylesheet" href="{% static 'CSS/freelancer.css' %}">
-  <title>صفحة المستخدم</title>
+  <title>صفحة المحترف</title>
 </head>
 <body>
   <header>
@@ -24,53 +24,55 @@
         </nav>
         <div class="language-selector"></div>
         <div class="auth-buttons">
-            <a href="/" class="login-btn">تسجيل خروج</a>
+            <a href="/logout" class="login-btn">تسجيل خروج</a>
         </div>
     </div>
-</header>
+  </header>
 
-    <main class="content">
-      
-
-      
-      
-      <div class="profile-card">
-        <div class="profile-pic"></div>
-        <p class="name">الاسم</p>
-        <button class="edit-btn">تعديل</button>
-        <h3>Your Rating</h3>
-        <h3>⭐⭐⭐⭐⭐</h3>
-        <div class="rating">
-         
-        </div>
+  <main class="content">
+    <div class="profile-card">
+      <div class="profile-pic">
+        <img src="{{ freelancer.profile_picture.url }}" alt="Profile Picture">
       </div>
+      <p class="name">{{ freelancer.fname }} {{ freelancer.lname }}</p>
+      <button class="edit-btn">تعديل</button>
+      <h3>تقييمك</h3>
+      <div class="rating">
+        {% for i in 1|to:5 %}
+          {% if i <= freelancer.average_rating|stringformat:"d" %}
+            <span>⭐</span>
+          {% else %}
+            <span>☆</span>
+          {% endif %}
+        {% endfor %}
+        <p>متوسط التقييم: {{ freelancer.average_rating }}</p>
+      </div>
+    </div>
     <div class="notificationss">
       <div class="notifications">
         <h3>الإشعارات</h3>
-        <div class="notification">إشعار 1</div>
-        <div class="notification">إشعار 2</div>
+        {% for notification in notifications %}
+          <div class="notification">{{ notification.text }}</div>
+        {% endfor %}
       </div>
       <div class="task-info">
-        <p>عدد المهام المنجزة: </p>
-        <p>الرصيد: </p>
-        <p>الوصف:</p>
+        <p>عدد المهام المنجزة: {{ completed_tasks }}</p>
+        <p>الرصيد: {{ freelancer.balance }} دينار</p>
+        <p>الوصف: {{ freelancer.description }}</p>
       </div>
     </div>
-
-      <div class="comments">
-        
+    <div class="comments">
+      {% for comment in comments %}
         <div class="comment">
-          <div class="comment-profile-pic"></div>
-          <p class="comment-name">الاسم</p>
-          <input type="hidden">
-          <p class="comment-text">
-            هنا مكان النص الخاص بالتعليق...
-          </p>
-          <button class="reply-btn">التعليقات</button>
+          <div class="comment-profile-pic">
+            <img src="{{ comment.user.profile_picture.url }}" alt="User Picture">
+          </div>
+          <p class="comment-name">{{ comment.user.fname }} {{ comment.user.lname }}</p>
+          <p class="comment-text">{{ comment.text }}</p>
+          <button class="reply-btn">الردود</button>
         </div>
-      </div>
-      
-    </main>
-  </div>
+      {% endfor %}
+    </div>
+  </main>
 </body>
 </html>

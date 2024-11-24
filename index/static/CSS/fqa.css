@@ -13,6 +13,11 @@ header {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
 }
+
+.logout-btn btn-warning{
+  color: orange;
+  background-color: orange;
+}
 .container {
   width: 90%;
   max-width: 1200px;

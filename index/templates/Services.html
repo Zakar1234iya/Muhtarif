@@ -26,11 +26,18 @@
                     <li><a href="/contact_us/">اتصل بنا</a></li>
                 </ul>
             </nav>
-            <div class="language-selector"></div>
             <div class="auth-buttons">
-                <a href="#" class="login-btn">تسجيل الدخول</a>
-                <a href="#" class="register-btn">إنشاء حساب</a>
+
+                {% if request.session.id %}
+                <!-- User is logged in, show logout button -->
+                <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
+            {% else %}
+                <!-- User is not logged in, show login and register buttons -->
+                <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
+                <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
+            {% endif %}
             </div>
+            
         </div>
     </header>
     <div class="main">
@@ -91,100 +98,7 @@
         <a href="#"><i class="fab fa-tiktok"></i></a>
         <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
     </div>
-    <!-- Register/Login Modal -->
-<div class="register_login" id="register_login">
-    <button class="close-btn" id="close-modal">X</button>
-    
-    <div class="flex justify-between mb-8">
-        <!-- Register Form (User/Freelancer selection) -->
-        <div class="w-1/2 pr-4" id="register">
-            <h2 class="text-2xl font-semibold mb-4">انشاء حساب</h2>
-
-            <!-- User/Freelancer Selection -->
-            <div class="mb-4">
-                <label for="user-freelancer" class="block text-gray-700">هل تريد التسجيل كـ</label>
-                <select id="user-freelancer" class="w-full border border-gray-400 p-2 rounded">
-                    <option value="" disabled selected>اختر نوع التسجيل</option>
-                    <option value="user">مستخدم</option>
-                    <option value="freelancer">مستقل</option>
-                </select>
-            </div>
-
-            <!-- Form Content Wrapper with Scroll -->
-            <div class="form-content-wrapper">
-                <form method="post" action="/register/">
-                    {% csrf_token %}
-                    <div class="mb-4">
-                        <label for="fname" class="block text-gray-700">الاسم الاول</label>
-                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="fname" name="fname" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="lname" class="block text-gray-700">الاسم الاخير</label>
-                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="lname" name="lname" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="block text-gray-700">البريد الالكتروني</label>
-                        <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email" required>
-                    </div>
-                    
-                    <!-- Job Category (Only for Freelancer) -->
-                    <div id="job-category" class="mb-4" style="display: none;">
-                        <label for="job_category" class="block text-gray-700">حدد المهنة</label>
-                        <select name="job_category" class="w-full border border-gray-400 p-2 rounded">
-                            <option value="" disabled selected>اختر المهنة</option>
-                            {% for profession in professions %}
-                                <option value="{{ profession.proid }}">{{ profession.protag }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                    <!-- Address -->
-                    <div class="mb-4">
-                        <label for="address" class="block text-gray-700">حدد العنوان</label>
-                        <select name="address" class="w-full border border-gray-400 p-2 rounded">
-                            <option value="" disabled selected>اختر العنوان</option>
-                            {% for address in addresses %}
-                                <option value="{{ address.address_id }}">{{ address.address_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="phone" class="block text-gray-700">رقم الهاتف</label>
-                        <input type="text" class="w-full border border-gray-400 p-2 rounded" id="phone" name="phone" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="password" class="block text-gray-700">كلمة المرور</label>
-                        <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password" required>
-                    </div>
-                    <div class="mb-4">
-                        <label for="re_password" class="block text-gray-700">تاكيد كلمة المرور</label>
-                        <input type="password" class="w-full border border-gray-400 p-2 rounded" id="re_password" name="re_password" required>
-                    </div>
-                    <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">انشاء حساب</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Login Form -->
-        <div class="login" id="login">
-            <h2 class="text-2xl font-semibold mb-4">تسجيل الدخول</h2>
-            <form method="post" action="/login/">
-                {% csrf_token %}
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700">بريد الكتروني</label>
-                    <input type="email" class="w-full border border-gray-400 p-2 rounded" name="email" id="email" required>
-                </div>
-                <div class="mb-4">
-                    <label for="password" class="block text-gray-700">كلمة السر</label>
-                    <input type="password" class="w-full border border-gray-400 p-2 rounded" name="password" id="password" required>
-                </div>
-                <button type="submit" class="bg-gray-300 text-black px-4 py-2 rounded">تسجيل الدخول</button>
-            </form>
-        </div>
-    </div>
-</div>
+  
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

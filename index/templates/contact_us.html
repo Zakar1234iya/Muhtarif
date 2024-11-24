@@ -26,6 +26,18 @@
           <li><a href="/fqa/">الأسئلة الشائعة</a></li>
         </ul>
       </nav>
+      <div class="auth-buttons">
+
+        {% if request.session.id %}
+        <!-- User is logged in, show logout button -->
+        <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
+    {% else %}
+        <!-- User is not logged in, show login and register buttons -->
+        <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
+        <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
+    {% endif %}
+    </div>
+    
 
     </div>
   </header>

@@ -52,18 +52,49 @@ $(document).ready(function () {
     });
 });
 
-// Function to fetch freelancers (make sure it's in the global scope)
-function fetchFreelancers(element) {
-    const proid = element.getAttribute('data-proid');
-    const url = `/freelancers?profession_id=${proid}`;
+function fetchFreelancers(serviceBoxElement) {
+    // Extract the profession ID from the clicked element using the correct data attribute
+    const professionId = serviceBoxElement.getAttribute('data-proid');
+    
+    if (!professionId) {
+        console.error("Profession ID not found");
+        return;
+    }
 
+    console.log('Profession ID:', professionId);  // Debugging line
+    
+    const url = `/freelancers/fetch/?profession_id=${professionId}`;
+    
     fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Handle the data, e.g., display it on the page
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
         })
-        .catch(error => {
-            console.error('Error fetching freelancers:', error);
-        });
+        .then(data => {
+            if (data.error) {
+                console.error("Error:", data.error);
+            } else {
+                console.log("Freelancers data:", data.freelancers);
+                // If freelancers are found, redirect to the freelancer list page
+                if (data.freelancers.length > 0) {
+                    window.location.href = `/freelancers/?profession_id=${professionId}`; // Redirect to freelancer list page
+                } else {
+                    alert("No freelancers found for this profession.");
+                }
+            }
+        })
+        .catch(error => console.error("Error fetching freelancers:", error));
 }
+
+
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    var password = document.getElementById('password').value;
+    var rePassword = document.getElementById('re_password').value;
+    if (password !== rePassword) {
+        e.preventDefault();
+        alert('كلمات المرور غير متطابقة.');
+    }
+});

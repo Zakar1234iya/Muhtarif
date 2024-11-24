@@ -13,7 +13,6 @@
 <body>
     <header>
         <div class="model_navbar">
-
             <div class="sidebar">
                 <div class="menue-pic" id="profile-pic"></div>
                 <div class="icons-container" id="icons-container">
@@ -44,19 +43,19 @@
     <main>
         <section class="profile-section">
             <div class="profile-container">
-                <div class="profile-pic"></div>
-                <h2>اسم العامل</h2>
+                <div class="profile-pic" style="background-image: url('{{ freelancer.photo.url }}');"></div>
+                <h2>{{ freelancer.fname }} {{ freelancer.lname }}</h2>
                 <h3>تقيمك:</h3>
-                <h3>⭐⭐⭐⭐⭐</h3>
-                <p>المهنة:ادخل المهنة</p>
-                <p>الموقع: رام الله</p>
-                <p>البريد الإلكتروني: example@email.com</p>
+                <h3>⭐⭐⭐⭐⭐</h3> <!-- You could implement dynamic rating logic here -->
+                <p>المهنة: {{ freelancer.job_category.proid }}</p>  <!-- Profession dynamically fetched -->
+                <p>الموقع: {{ freelancer.location }}</p>  <!-- Location dynamically fetched -->
+                <p>البريد الإلكتروني: {{ freelancer.email }}</p>  <!-- Email dynamically fetched -->
                 <button class="edit-btn">تعديل المعلومات</button>
             </div>
         </section>
     </main>
 
-    <fotter>
+    <footer>
         <div class="fotter">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -65,10 +64,9 @@
             <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
         <p class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</p>
-        </footer>
-        <script src="freelancer_profile.js">
+    </footer>
 
-        </script>
+    <script src="freelancer_profile.js"></script>
 </body>
 
 </html>
