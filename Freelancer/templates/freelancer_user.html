@@ -55,9 +55,28 @@
         <p>متوسط التقييم: {{ freelancer.average_rating }}</p>
       </div>
     </div>
-      <div class="task-info">
+    <div class="task-info">
         <p>عدد المهام المنجزة: {{ completed_tasks }}</p>
-        <p>المهنة: {{ freelancer.profession.protag }}</p>      </div>
+        <p>المهنة: {{ freelancer.profession.protag }}</p>
+    </div>
+    <div class="comment-section">
+      <h4>أضف تعليقًا:</h4>
+      <form method="POST" action="{% url 'viewfreelancer' freelancer.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea class="form-control" name="comment_content" rows="3" placeholder="اكتب تعليقك هنا..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">إرسال التعليق</button>
+      </form>
+      <h4>التعليقات:</h4>
+      {% for comment in comments %}
+        <div class="comment">
+          <p>{{ comment.content }}</p>
+          <small>من: {{ comment.creator.fname }} {{ comment.creator.lname }}</small>
+          <p>بتاريخ: {{ comment.created_at }}</p>
+        </div>
+      {% endfor %}
+    </div>
   </main>
 </body>
 </html>

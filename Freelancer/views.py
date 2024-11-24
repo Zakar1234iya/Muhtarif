@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse ,JsonResponse,Http404
 from .models import Freelancer, Address, Profession
-from Freelancer.models import Freelancer 
+from Freelancer.models import Freelancer , Comment ,Task
 from django.apps import apps
 from django.contrib import messages
 from User.models import *
@@ -162,36 +162,82 @@ def fetch_freelancers(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
-def freelancer_post(request):
-    freelancer_id = request.session.get('id')
+# def freelancer_post(request):
+#     freelancer_id = request.session.get('id')
+#     user_type = request.session.get('type')
+    
+#     # Ensure the logged-in user is of the correct type (freelancer)
+#     if not freelancer_id or user_type != 'freelancer':
+#         # Redirect to a general page if the freelancer is not logged in or trying to access the wrong page
+#         return redirect('/')
+    
+#     # Retrieve the freelancer object by ID
+#     freelancer = Freelancer.objects.get(id=freelancer_id)
+    
+#     # Fetch posts created by users
+#     posts = Post.objects.all().order_by('-created_at')
+    
+#     if request.method == 'POST':
+#         content = request.POST.get('comment_content')
+#         post_id = request.POST.get('post_id')
+#         post = Post.objects.get(id=post_id)
+        
+#         # Create a new comment
+#         comment = Comment(content=content, creator=freelancer, post=post)
+#         comment.save()
+#         messages.success(request, 'تم إضافة التعليق بنجاح!')
+#         return redirect('freelancer_post')
+    
+#     context = {
+#         'freelancer': freelancer,
+#         'posts': posts
+#     }
+    
+#     # Render the post template with the context data
+#     return render(request, 'post.html', context)
+
+
+
+
+def get_completed_tasks(freelancer):
+    return Task.objects.filter(freelancer=freelancer, status='completed').count()
+
+def viewfreelancer(request, freelancer_id):
+    user_id = request.session.get('id')
     user_type = request.session.get('type')
     
-    # Ensure the logged-in user is of the correct type (freelancer)
-    if not freelancer_id or user_type != 'freelancer':
-        # Redirect to a general page if the freelancer is not logged in or trying to access the wrong page
+    # Ensure the logged-in user is of the correct type (user)
+    if not user_id or user_type != 'user':
+        messages.error(request, 'You must be logged in as a user to view this page.')
         return redirect('/')
     
-    # Retrieve the freelancer object by ID
-    freelancer = Freelancer.objects.get(id=freelancer_id)
-    
-    # Fetch posts created by users
-    posts = Post.objects.all().order_by('-created_at')
+    freelancer = Freelancer.objects.filter(id=freelancer_id).first()
+    if not freelancer:
+        messages.error(request, 'Freelancer not found.')
+        return redirect('/')
+
+    user = User.objects.filter(id=user_id).first()  # Ensure user exists
+    if not user:
+        messages.error(request, 'User not found.')
+        return redirect('/')
+
+    completed_tasks = get_completed_tasks(freelancer)  # Use the helper function to get the count of completed tasks
     
     if request.method == 'POST':
-        content = request.POST.get('comment_content')
-        post_id = request.POST.get('post_id')
-        post = Post.objects.get(id=post_id)
-        
-        # Create a new comment
-        comment = Comment(content=content, creator=freelancer, post=post)
-        comment.save()
-        messages.success(request, 'تم إضافة التعليق بنجاح!')
-        return redirect('freelancer_post')
+        comment_content = request.POST.get('comment_content')
+        if comment_content:
+            Comment.objects.create(content=comment_content, creator=user, freelancer=freelancer)
+            messages.success(request, 'Comment added successfully.')
+        else:
+            messages.error(request, 'Comment content cannot be empty.')
+        return redirect('viewfreelancer', freelancer_id=freelancer_id)
+    
+    comments = Comment.objects.filter(freelancer=freelancer).order_by('-created_at')
     
     context = {
         'freelancer': freelancer,
-        'posts': posts
+        'completed_tasks': completed_tasks,
+        'comments': comments
     }
-    
-    # Render the post template with the context data
-    return render(request, 'post.html', context)
+    return render(request, 'freelancer_user.html', context)
+

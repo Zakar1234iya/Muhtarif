@@ -57,9 +57,8 @@
                                       {% endfor %}
                                     {% endwith %}
                                 </div>
-                                <a href="/profile?freelancer_id={{ freelancer.id }}" class="btn btn-primary">عرض الملف الشخصي</a><br>
+                                <a href="{% url 'viewfreelancer' freelancer.id %}" class="btn btn-info mt-2">عرض الملف الشخصي</a><br>
                                 <a href="/chat?freelancer_id={{ freelancer.id }}" class="btn btn-success mt-2">ابدأ الدردشة</a><br>
-                                <button class="btn btn-info mt-2" onclick="showFreelancerInfo({{ freelancer.id }})">عرض المعلومات</button>
                             </div>
                         </div>
                     </div>
@@ -68,4 +67,7 @@
         {% endif %}
     </div>
 </body>
+
+
+
 </html>
