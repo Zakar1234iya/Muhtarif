@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static '/css/style-services.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/About_us/">من نحن</a></li>
+                    <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+                    <li><a href="/contact_us/">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                {% if request.session.id %}
+                <!-- User is logged in, show logout button -->
+                <a href="{% url 'logout' %}" class="logout-btn btn-warning" id = "logout_btn_2">تسجيل الخروج</a>
+                {% else %}
+                <!-- User is not logged in, show login and register buttons -->
+                <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
+                <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="service-box" data-proid="9" onclick="fetchFreelancers(this)">
+            <i class="fas fa-square"></i>
+            <p>بلاط</p>
+        </div>
+        <div class="service-box" data-proid="1" onclick="fetchFreelancers(this)">
+            <i class="fas fa-satellite-dish"></i>
+            <p>ستالايت</p>
+        </div>
+        <div class="service-box" data-proid="11" onclick="fetchFreelancers(this)">
+            <i class="mdi mdi-anvil"></i>
+            <p>حدادة</p>
+        </div>
+        <div class="service-box" data-proid="3" onclick="fetchFreelancers(this)">
+            <i class="fas fa-faucet"></i>
+            <p>سباكة</p>
+        </div>
+        <div class="service-box" data-proid="8" onclick="fetchFreelancers(this)">
+            <i class="fas fa-chair"></i>
+            <p>نجارة</p>
+        </div>
+        <div class="service-box" data-proid="4" onclick="fetchFreelancers(this)">
+            <i class="fas fa-plug"></i>
+            <p>كهرباء</p>
+        </div>
+        <div class="service-box" data-proid="10" onclick="fetchFreelancers(this)">
+            <i class="fas fa-window-maximize"></i>
+            <p>زجاج والمنيوم</p>
+        </div>
+        <div class="service-box" data-proid="5" onclick="fetchFreelancers(this)">
+            <i class="fas fa-wind"></i>
+            <p>تكييف وتبريد</p>
+        </div>
+        <div class="service-box" data-proid="6" onclick="fetchFreelancers(this)">
+            <i class="fas fa-paint-roller"></i>
+            <p>دهان</p>
+        </div>
+        <div class="service-box" data-proid="2" onclick="fetchFreelancers(this)">
+            <i class="fas fa-blender"></i>
+            <p>اجهزة منزلية</p>
+        </div>
+        <div class="service-box" data-proid="12" onclick="fetchFreelancers(this)">
+            <i class="fas fa-paint-brush"></i>
+            <p>ديكور وجبصين</p>
+        </div>
+        <div class="service-box" data-proid="7" onclick="fetchFreelancers(this)">
+            <i class="fas fa-camera"></i>
+            <p>كاميرات مراقبة</p>
+        </div>        
+    </div>
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
+    </div>
+
+    <!-- Ensure the script is loaded at the end of the body tag -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'scripts.js' %}"></script>
+    <script>
+        function fetchFreelancers(serviceBoxElement) {
+            const professionId = serviceBoxElement.getAttribute('data-proid');
+            
+            if (!professionId) {
+                console.error("Profession ID not found");
+                return;
+            }
+    
+            console.log('Fetching freelancers for profession ID:', professionId); // Add a console log for debugging
+    
+            // Directly redirect to the freelancer list page with the profession ID
+            window.location.href = `/freelancers/?profession_id=${professionId}`;
+        }
+    </script>
+    
+</body>
+
+</html>

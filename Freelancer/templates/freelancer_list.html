@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>قائمة المحترفين</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/style-services.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/">الرئيسية</a></li>
+                    <li><a href="/About_us/">من نحن</a></li>
+                    <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+                    <li><a href="/contact_us/">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <a href="/logout" class="login-btn">تسجيل خروج</a>
+            </div>
+        </div>
+        </div>
+    </header>
+
+    <div class="container mt-5" style="margin-top: 8rem;">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% else %}
+            <div class="row" id="freelancer-list">
+                {% for freelancer in freelancers %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-primary">
+                            {% if freelancer.profile_picture %}
+                                <img src="{{ freelancer.profile_picture.url }}" class="card-img-top" alt="{{ freelancer.fname }}" style="width: 120px; height: 120px; object-fit: cover; margin: auto; padding: 10px;" />
+                            {% else %}
+                                <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" class="card-img-top" alt="{{ freelancer.fname }}" style="width: 120px; height: 120px; object-fit: cover; margin: auto; padding: 10px;" />
+                            {% endif %}
+                            <div class="card-body">
+                                <h2 class="card-title">{{ freelancer.fname }} {{ freelancer.lname }}</h2>
+                                <div class="d-flex align-items-center mb-3">
+                                    <!-- Star rating -->
+                                    {% with 5 as total_stars %}
+                                      {% for i in range %}
+                                        {% if i < freelancer.average_rating %}
+                                          <i class="fas fa-star"></i>
+                                        {% else %}
+                                          <i class="far fa-star"></i>
+                                        {% endif %}
+                                      {% endfor %}
+                                    {% endwith %}
+                                </div>
+                                <a href="/profile?freelancer_id={{ freelancer.id }}" class="btn btn-primary">عرض الملف الشخصي</a><br>
+                                <a href="/chat?freelancer_id={{ freelancer.id }}" class="btn btn-success mt-2">ابدأ الدردشة</a><br>
+                                <button class="btn btn-info mt-2" onclick="showFreelancerInfo({{ freelancer.id }})">عرض المعلومات</button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -31,6 +31,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'index',
+    'User', 
+    'Freelancer',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,15 +79,13 @@ WSGI_APPLICATION = 'Muhtaraif.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mansaf',   # Replace with your MySQL database name
-        'USER': 'prj_mansaf',   # Replace with your MySQL username
-        'PASSWORD': '@toor369',  # Replace with your MySQL password
-        'HOST': '127.0.0.1',   # Or the address of your MySQL server
-        'PORT': '3306',        # Default MySQL port
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

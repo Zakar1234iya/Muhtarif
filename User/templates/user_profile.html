@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صفحة البروفايل</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/user_profile.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="model_navbar">
+        <img class="logo navbar-item" src="https://i.ibb.co/9qVrBv0/logo-page.png" alt="Logo" width="100">
+        <nav class="navbar-item">
+            <ul>
+                <li><a href="/">الرئيسية</a></li>
+                <li><a href="/service">خدماتنا</a></li>
+                <li><a href="/About_us/">من نحن</a></li>
+                <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+                <li><a href="/contact_us/">اتصل بنا</a></li>
+                <li>
+                    <div class="sidebar">
+                        <div class="profile-pic" id="profile-pic"></div>
+                        <div class="icons-container" id="icons-container">
+                            <div class="separator"></div>
+                            <div class="icon"><i class="fas fa-comment"></i></div>
+                            <div class="icon"><i class="fas fa-sliders-h"></i></div>
+                            <div class="icon">
+                                <i class="fas fa-bell"></i>
+                                <span class="badge">18</span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <div class="auth-buttons navbar-item">
+            <a href="{% url 'logout' %}" class="logout-btn">تسجيل الخروج </a>
+        </div>
+    </div>
+</header>
+
+    <main>
+        <section class="profile-section">
+            <div class="profile-container">
+                <div class="profile-pic"></div>
+                <h2>{{ user.fname }} {{ user.lname }}</h2>
+                <p>الموقع: {{ address_name }}</p>
+                <p>البريد الإلكتروني: {{ user.email }}</p>
+                <p>رقم الهاتف: {{ user.phone_number }}</p>
+                <button class="edit-btn">تعديل المعلومات</button>
+            </div>
+        </section>
+    </main>
+    
+
+    <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
+    </div>
+</body>
+</html>

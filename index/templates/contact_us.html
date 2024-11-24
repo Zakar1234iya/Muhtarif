@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>اتصل بنا</title>
+  {% load static %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'CSS/contact_us.css' %}">
+  </head>
+
+
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo">
+      </div>
+      <nav>
+        <ul>
+          <li><a href="/">الرئيسية</a></li>
+          <li><a href="/service">خدماتنا</a></li>
+          <li><a href="/About_us/">من نحن</a></li>
+          <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+        </ul>
+      </nav>
+      <div class="auth-buttons">
+
+        {% if request.session.id %}
+        <!-- User is logged in, show logout button -->
+        <a href="{% url 'logout' %}" class="logout-btn btn-warning" id = "logout_btn_2">تسجيل الخروج</a>
+    {% else %}
+        <!-- User is not logged in, show login and register buttons -->
+        <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
+        <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
+    {% endif %}
+    </div>
+    
+
+    </div>
+  </header>
+  
+  <div class="contact-container">
+    <div class="contact-info">
+      <h2>اتصل بنا</h2>
+      <p><i class="fas fa-phone-alt"></i> الهاتف:+970-594-4422</p>
+      <p><i class="fas fa-envelope"></i> البريد الإلكتروني: Muhtarif@gmail.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> العنوان:المصايف , عمارة اوغاريت</p>
+    </div>
+    <div class="contact-photo">
+      <img src="{% static 'images/contact_us.png' %}" alt="Logo">
+    </div>
+  </div>
+
+  <fotter>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+      <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
+  </div>
+</body>
+
+</html>

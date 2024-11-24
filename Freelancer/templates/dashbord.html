@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'CSS/freelancer.css' %}">
+  <title>صفحة المحترف</title>
+</head>
+<body>
+  <header>
+    <div class="container">
+        <div class="logo">
+            <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+        </div>
+        <nav>
+            <ul>
+              <li><a href="/">الرئيسية</a></li>
+              <li><a href="/service">خدماتنا</a></li>
+              <li><a href="/About_us/">من نحن</a></li>
+              <li><a href="/fqa/">الأسئلة الشائعة</a></li>
+              <li><a href="/contact_us/">اتصل بنا</a></li>
+            </ul>
+        </nav>
+        <div class="language-selector"></div>
+        <div class="auth-buttons">
+            <a href="/logout" class="login-btn">تسجيل خروج</a>
+        </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="profile-card">
+      <div class="profile-pic">
+        {% if freelancer.profile_picture %}
+          <img src="{{ freelancer.profile_picture.url }}" alt="Profile Picture" style="width: 100px; height: 100px;">
+        {% else %}
+          <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" alt="Default Profile Picture" style="width: 100px; height: 100px;">
+        {% endif %}
+      </div>
+      <p class="name">{{ freelancer.fname }} {{ freelancer.lname }}</p>
+      <a href="{% url 'freelancer-profile' freelancer.id %}" class="edit-btn">تعديل</a>
+      <br>
+      <br><h3>تقييمك</h3>
+      <div class="rating">
+        {% with average_rating=freelancer.average_rating|stringformat:"d" %}
+          {% for i in "12345" %}
+            {% if i|add:"0" < average_rating|add:"0" %}
+              <span>⭐</span>
+            {% else %}
+              <span>☆</span>
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
+        <p>متوسط التقييم: {{ freelancer.average_rating }}</p>
+      </div>
+    </div>
+    <div class="notificationss">
+      <div class="notifications">
+        <h3>الإشعارات</h3>
+        {% for notification in notifications %}
+          <div class="notification">{{ notification.text }}</div>
+        {% endfor %}
+      </div>
+      <div class="task-info">
+        <p>عدد المهام المنجزة: {{ completed_tasks }}</p>
+        <p>المهنة: {{ freelancer.profession.protag }}</p>      </div>
+    </div>
+    <div class="comments">
+      {% for comment in comments %}
+        <div class="comment">
+          <div class="comment-profile-pic">
+            {% if comment.user.profile_picture %}
+              <img src="{{ comment.user.profile_picture.url }}" alt="User Picture" style="width: 30px; height: 30px;">
+            {% else %}
+              <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" alt="Default Profile Picture" style="width: 30px; height: 30px;">
+            {% endif %}
+          </div>
+          <p class="comment-name">{{ comment.user.fname }} {{ comment.user.lname }}</p>
+          <p class="comment-text">{{ comment.text }}</p>
+          <button class="reply-btn">الردود</button>
+        </div>
+      {% endfor %}
+    </div>
+  </main>
+</body>
+</html>
