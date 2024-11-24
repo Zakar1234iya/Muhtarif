@@ -202,7 +202,6 @@ nav ul li a {
 .social-icons {
     display: flex;
     flex-wrap: wrap;
-    justify ```css
     content: center;
     align-items: center;
     gap: 15px;
