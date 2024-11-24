@@ -11,6 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 .profile-pic {
@@ -42,7 +43,7 @@ body {
     top: -10px;
     right: -10px;
     background: red;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 525);
     border-radius: 50%;
     font-size: 12px;
 }
@@ -126,7 +127,7 @@ nav ul li a:hover {
     display: flex;
     gap: 10px;
 }
-..logout-btn {
+.logout-btn {
 align-items: center;}
 .auth-buttons .logout-btn {
     text-decoration: none;
