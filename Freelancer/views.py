@@ -207,9 +207,21 @@ def fetch_freelancers(request):
 
 
 
+<<<<<<< Updated upstream
 def get_completed_tasks(freelancer):
     return Task.objects.filter(freelancer=freelancer, status='completed').count()
 
+def viewfreelancer(request, freelancer_id):
+    user_id = request.session.get('id')
+    user_type = request.session.get('type')
+    
+    # Ensure the logged-in user is of the correct type (user)
+    if not user_id or user_type != 'user':
+        messages.error(request, 'You must be logged in as a user to view this page.')
+        return redirect('/')
+    
+    freelancer = Freelancer.objects.filter(id=freelancer_id).first()
+=======
 def viewfreelancer(request, freelancer_id):
     user_id = request.session.get('id')
     user_type = request.session.get('type')
@@ -224,11 +236,51 @@ def viewfreelancer(request, freelancer_id):
         messages.error(request, 'Freelancer not found.')
         return redirect('/')
 
+    completed_tasks = Task.objects.filter(freelancer=freelancer, status='completed').count()  # Example for counting completed tasks
+    
+    if request.method == 'POST':
+        comment_content = request.POST.get('comment_content')
+        Comment.objects.create(content=comment_content, creator_id=user_id, freelancer=freelancer)
+        messages.success(request, 'Comment added successfully.')
+        return redirect('viewfreelancer', freelancer_id=freelancer_id)
+    
+    comments = Comment.objects.filter(freelancer=freelancer).order_by('-created_at')
+    
+    context = {
+        'freelancer': freelancer,
+        'completed_tasks': completed_tasks,
+        'comments': comments
+    }
+    return render(request, 'freelancer_user.html', context)
+
+def update_freelancer_profile(request, freelancer_id):
+    # Your code to update freelancer profile
+    pass
+
+def freelancer_post(request):
+    freelancer_email = request.session.get('email')
+    user_type = request.session.get('type')
+    
+    # Ensure the logged-in user is of the correct type (freelancer)
+    if not freelancer_email or user_type != 'freelancer':
+        return redirect('/')
+    
+    freelancer = Freelancer.objects.filter(email=freelancer_email).first()
+>>>>>>> Stashed changes
+    if not freelancer:
+        messages.error(request, 'Freelancer not found.')
+        return redirect('/')
+
+<<<<<<< Updated upstream
     user = User.objects.filter(id=user_id).first()  # Ensure user exists
+=======
+    user = User.objects.filter(email=freelancer_email).first()
+>>>>>>> Stashed changes
     if not user:
         messages.error(request, 'User not found.')
         return redirect('/')
 
+<<<<<<< Updated upstream
     completed_tasks = get_completed_tasks(freelancer)  # Use the helper function to get the count of completed tasks
     
     if request.method == 'POST':
@@ -241,11 +293,29 @@ def viewfreelancer(request, freelancer_id):
         return redirect('viewfreelancer', freelancer_id=freelancer_id)
     
     comments = Comment.objects.filter(freelancer=freelancer).order_by('-created_at')
+=======
+    posts = Post.objects.all().order_by('-created_at')
+    
+    if request.method == 'POST':
+        content = request.POST.get('comment_content')
+        post_id = request.POST.get('post_id')
+        post = Post.objects.filter(id=post_id).first()
+        if post:
+            Comment.objects.create(content=content, creator=user, post=post)
+            messages.success(request, 'تم إضافة التعليق بنجاح!')
+        else:
+            messages.error(request, 'Post not found.')
+        return redirect('freelancer_post')
+>>>>>>> Stashed changes
     
     context = {
         'freelancer': freelancer,
         'completed_tasks': completed_tasks,
         'comments': comments
     }
+<<<<<<< Updated upstream
     return render(request, 'freelancer_user.html', context)
 
+=======
+    return render(request, 'Freelancer/post.html', context)
+>>>>>>> Stashed changes
