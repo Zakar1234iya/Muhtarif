@@ -14,10 +14,10 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
-.logout-btn btn-warning{
+/* .logout-btn btn-warning{
   color: orange;
   background-color: orange;
-}
+} */
 .container {
   width: 90%;
   max-width: 1200px;
@@ -84,6 +84,11 @@ nav ul li a:hover {
 
 .register-btn:hover {
   background-color: #1e7e34;
+}
+
+#logout_btn_2{
+  color: #f8f9fa;
+  background-color: #fbb519;
 }
 
 .main {
