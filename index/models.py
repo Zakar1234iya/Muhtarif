@@ -35,7 +35,7 @@ def zak(delay=5):
     timer = threading.Timer(delay, add_address)
     timer.start()
 
-# zak()
+#zak()
 
 
 # class Freelancer(models.Model):

@@ -106,18 +106,18 @@ def add_pro():
     ]
 
     for profession in professions:
-        obj, created = Profession.objects.get_or_create(
-            proid=profession['proid'],
-            defaults={'protag': profession['protag']}
-        )
-        if created:
-            print(f"Added Profession: {profession['protag']}")
+        created_address = Profession.objects.filter(proid=profession['proid'], profession=profession['protag'])
+        if not created_address.exists():
+            Profession.objects.create(proid=profession['proid'], profession=profession['protag'])
+            print(f"Created new profession: {profession['protag']}")
         else:
-            print(f"Profession with proid {profession['proid']} already exists.")
+            print(f"Profession already exists: {profession['protag']}")
 
-def delayed_add_pro(delay=60):
+def delayed_add_pro(delay=5):
     timer = threading.Timer(delay, add_pro)
     timer.start()
+
+delayed_add_pro()
 
 class Freelancer(models.Model):
     fname = models.CharField(max_length=50)
