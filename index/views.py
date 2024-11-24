@@ -8,6 +8,8 @@ from .models import *
 import bcrypt
 from .models import Address
 
+
+
 def index(request):
     context = {
         'professions': Profession.get_all_professions(),
@@ -145,17 +147,26 @@ def logout(request):
 
 def get_freelancers(request):
     profession_id = request.GET.get('profession_id')
-    freelancers = Freelancer.objects.filter(profession__id=profession_id)
+    if not profession_id:
+        return JsonResponse({'error': 'No profession ID provided'}, status=400)
+
+    if not profession_id.isdigit():
+        return JsonResponse({'error': 'Invalid profession ID'}, status=400)
+
+    freelancers = Freelancer.objects.filter(profession__proid=int(profession_id))
     freelancers_data = [
         {
+            'id': freelancer.id,
             'fname': freelancer.fname,
             'lname': freelancer.lname,
             'email': freelancer.email,
             'phone_number': freelancer.phone_number,
+            'photo': freelancer.profile_picture.url if freelancer.profile_picture else 'https://cdn-icons-png.flaticon.com/512/2716/2716808.png',
+            'rating': freelancer.average_rating,
         }
         for freelancer in freelancers
     ]
-    return JsonResponse(freelancers_data, safe=False)
+    return JsonResponse({'freelancers': freelancers_data}, safe=False)
 
 
 

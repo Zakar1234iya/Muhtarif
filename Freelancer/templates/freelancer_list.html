@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الحرفيين (المحترفيين)</title>
+    <title>قائمة المحترفين</title>
     {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static '/css/style-services.css' %}">
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style-services.css' %}">
 </head>
-
 <body>
     <header>
         <div class="container">
@@ -30,88 +26,42 @@
         </div>
     </header>
 
-    <div class="container my-5">
-        <div class="row" id="freelancer-list">
-        </div>
-    </div>
-
-    <div class="social-icons">
-        <a href="#"><i class="fab fa-facebook-f"></i></a>
-        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-tiktok"></i></a>
-        <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Fetch freelancers by profession ID (proid)
-        const proid = new URLSearchParams(window.location.search).get('profession_id');
-        
-        fetch(`/freelancers?profession_id=${proid}`)
-            .then(response => response.json())
-            .then(freelancers => {
-                const freelancerList = document.getElementById('freelancer-list');
-                freelancers.forEach(freelancer => {
-                    // Creating a Bootstrap card for each freelancer
-                    const card = document.createElement('div');
-                    card.classList.add('col-md-4', 'mb-4');
-
-                    card.innerHTML = `
-                        <div class="card">
-                            <img src="${freelancer.photo}" class="card-img-top" alt="${freelancer.fname}" />
+    <div class="container mt-5" style="margin-top: 8rem;">
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% else %}
+            <div class="row" id="freelancer-list">
+                {% for freelancer in freelancers %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-primary">
+                            {% if freelancer.profile_picture %}
+                                <img src="{{ freelancer.profile_picture.url }}" class="card-img-top" alt="{{ freelancer.fname }}" style="width: 120px; height: 120px; object-fit: cover; margin: auto; padding: 10px;" />
+                            {% else %}
+                                <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" class="card-img-top" alt="{{ freelancer.fname }}" style="width: 120px; height: 120px; object-fit: cover; margin: auto; padding: 10px;" />
+                            {% endif %}
                             <div class="card-body">
-                                <h5 class="card-title">${freelancer.fname} ${freelancer.lname}</h5>
+                                <h2 class="card-title">{{ freelancer.fname }} {{ freelancer.lname }}</h2>
                                 <div class="d-flex align-items-center mb-3">
                                     <!-- Star rating -->
-                                    ${getStarRating(freelancer.rating)}
+                                    {% with 5 as total_stars %}
+                                      {% for i in range %}
+                                        {% if i < freelancer.average_rating %}
+                                          <i class="fas fa-star"></i>
+                                        {% else %}
+                                          <i class="far fa-star"></i>
+                                        {% endif %}
+                                      {% endfor %}
+                                    {% endwith %}
                                 </div>
-                                <a href="/profile?freelancer_id=${freelancer.id}" class="btn btn-primary">عرض الملف الشخصي</a>
-                                <a href="/chat?freelancer_id=${freelancer.id}" class="btn btn-success mt-2">ابدأ الدردشة</a>
-                                <button class="btn btn-info mt-2" onclick="showFreelancerInfo(${freelancer.id})">عرض المعلومات</button>
+                                <a href="/profile?freelancer_id={{ freelancer.id }}" class="btn btn-primary">عرض الملف الشخصي</a><br>
+                                <a href="/chat?freelancer_id={{ freelancer.id }}" class="btn btn-success mt-2">ابدأ الدردشة</a><br>
+                                <button class="btn btn-info mt-2" onclick="showFreelancerInfo({{ freelancer.id }})">عرض المعلومات</button>
                             </div>
                         </div>
-                    `;
-                    freelancerList.appendChild(card);
-                });
-            })
-            .catch(error => console.error('Error fetching freelancers:', error));
-
-        // Function to generate star rating
-        function getStarRating(rating) {
-            const fullStars = Math.floor(rating);
-            const halfStars = rating % 1 !== 0;
-            const emptyStars = 5 - fullStars - (halfStars ? 1 : 0);
-
-            let starsHtml = '';
-            for (let i = 0; i < fullStars; i++) {
-                starsHtml += '<i class="fas fa-star"></i>';
-            }
-            if (halfStars) {
-                starsHtml += '<i class="fas fa-star-half-alt"></i>';
-            }
-            for (let i = 0; i < emptyStars; i++) {
-                starsHtml += '<i class="far fa-star"></i>';
-            }
-            return starsHtml;
-        }
-
-        // Function to handle showing freelancer info
-        function showFreelancerInfo(freelancerId) {
-            fetch(`/freelancer_info?freelancer_id=${freelancerId}`, {
-                method: 'POST',
-                body: JSON.stringify({ freelancer_id: freelancerId }),
-                headers: { 'Content-Type': 'application/json' },
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Display freelancer's phone and email (could be in a modal or an alert)
-                alert(`Phone: ${data.phone}\nEmail: ${data.email}`);
-            })
-            .catch(error => console.error('Error fetching freelancer info:', error));
-        }
-    </script>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </body>
-
 </html>

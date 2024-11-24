@@ -5,6 +5,8 @@ from Freelancer.models import Freelancer
 from django.apps import apps
 from django.contrib import messages
 from User.models import User  
+import bcrypt
+
 
 # Other view functions here...
 
@@ -135,15 +137,28 @@ def edit_freelancer(request, freelancer_id):
         }
         return render(request, 'freelancer_profile.html', context)
 
-
 def freelancer_list(request):
     profession_id = request.GET.get('profession_id')
-    if profession_id and profession_id.isdigit():
-        freelancers = Freelancer.objects.filter(job_category__proid=int(profession_id))
-    else:
-        freelancers = Freelancer.objects.all()
+    if not profession_id:
+        context = {
+            'error': 'No profession ID provided',
+            'freelancers': [],
+        }
+        return render(request, 'freelancer_list.html', context)
 
-    return render(request, 'freelancer/freelancer_list.html', {'freelancers': freelancers})
+    if not profession_id.isdigit():
+        context = {
+            'error': 'Invalid profession ID',
+            'freelancers': [],
+        }
+        return render(request, 'freelancer_list.html', context)
+
+    freelancers = Freelancer.objects.filter(profession__proid=int(profession_id))
+    context = {
+        'freelancers': freelancers,
+    }
+    return render(request, 'freelancer_list.html', context)
+
 
 
 def freelancer_profile(request, freelancer_id):

@@ -53,7 +53,6 @@ $(document).ready(function () {
 });
 
 function fetchFreelancers(serviceBoxElement) {
-    // Extract the profession ID from the clicked element using the correct data attribute
     const professionId = serviceBoxElement.getAttribute('data-proid');
     
     if (!professionId) {
@@ -61,14 +60,13 @@ function fetchFreelancers(serviceBoxElement) {
         return;
     }
 
-    console.log('Profession ID:', professionId);  // Debugging line
-    
     const url = `/freelancers/fetch/?profession_id=${professionId}`;
     
     fetch(url)
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                console.error(`HTTP error! status: ${response.status}`);
+                return;
             }
             return response.json();
         })
@@ -76,17 +74,13 @@ function fetchFreelancers(serviceBoxElement) {
             if (data.error) {
                 console.error("Error:", data.error);
             } else {
-                console.log("Freelancers data:", data.freelancers);
-                // If freelancers are found, redirect to the freelancer list page
-                if (data.freelancers.length > 0) {
-                    window.location.href = `/freelancers/?profession_id=${professionId}`; // Redirect to freelancer list page
-                } else {
-                    alert("No freelancers found for this profession.");
-                }
+                // Redirect to the freelancer list page
+                window.location.href = `/freelancers/?profession_id=${professionId}`;
             }
         })
         .catch(error => console.error("Error fetching freelancers:", error));
 }
+
 
 
 
