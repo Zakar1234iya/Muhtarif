@@ -5,6 +5,7 @@ from index.models import Address
 from Freelancer.models import Freelancer
 
 # View to render the user dashboard
+
 def user_dashboard(request):
     user_id = request.session.get('id')
     user_type = request.session.get('type')
@@ -22,6 +23,7 @@ def user_dashboard(request):
         'user': user
     }
     return render(request, 'user_dashboard.html', context)
+
 
 
 # View to render the user profile page

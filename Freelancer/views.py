@@ -100,8 +100,16 @@ def update_freelancer_profile(request, freelancer_id):
     })
 
 
-
 def freelancer_list(request):
+    # Check if the user is logged in and is of type 'user'
+    user_id = request.session.get('id')
+    user_type = request.session.get('type')
+    
+    if not user_id or user_type != 'user':
+        messages.error(request, 'You must be logged in as a user to view this page.')
+        return redirect('/')
+
+    # Proceed with the rest of the function if the user is authenticated and of type 'user'
     profession_id = request.GET.get('profession_id')
     if not profession_id:
         context = {
@@ -122,6 +130,7 @@ def freelancer_list(request):
         'freelancers': freelancers,
     }
     return render(request, 'freelancer_list.html', context)
+
 
 
 

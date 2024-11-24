@@ -35,14 +35,10 @@
                     <img class="user-pic" src="https://via.placeholder.com/50" alt="User profile picture">
                 </a>
             </div>
-            
-            
 
             <div class="auth-buttons navbar-item">
-                
                 <a href="{% url 'logout' %}" class="logout-btn">تسجيل الخروج</a>
             </div>
-        </div>
         </div>
     </header>
 
@@ -83,7 +79,7 @@
                 
                 <!-- Comments Section -->
                 <h6 class="mt-4">التعليقات:</h6>
-                {% for comment in post.comments %}
+                {% for comment in post.comments.all %} <!-- Use .all here -->
                 <div class="comment mt-2">
                     <p>{{ comment.content }}</p>
                     <small>من: {{ comment.creator.fname }} {{ comment.creator.lname }}</small>
