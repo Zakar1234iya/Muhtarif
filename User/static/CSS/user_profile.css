@@ -346,3 +346,95 @@ button:hover {
       font-size: 1.2rem;
   }
 }
+
+
+h1 {
+  color: #103d5a;
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Form Layout */
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px; /* Space between rows and columns */
+  align-items: center;
+}
+
+/* Full-width for some fields */
+form .form-group.full-width {
+  grid-column: span 2;
+}
+
+/* Section Separator */
+form hr {
+  grid-column: span 2; /* Extend the horizontal rule across both columns */
+  border: none;
+  border-top: 2px solid #103d5a;
+  margin: 20px 0;
+}
+
+/* Labels */
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #103d5a;
+}
+
+/* Input and Select Fields */
+.form-control {
+  width: 100%;
+  border: 1px solid #103d5a;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1rem;
+  color: #103d5a;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #fbb519;
+  box-shadow: 0 0 5px rgba(251, 181, 25, 0.5);
+}
+
+/* Button Style */
+.btn-primary {
+  background-color: #103d5a;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 5px;
+  grid-column: span 2; /* Make the button span two columns */
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background-color: #fbb519;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  background-color: #d99712;
+  transform: translateY(0);
+}
+
+/* Adjust error alert */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  grid-column: span 2;
+}
+
+/* Dropdown Placeholder */
+select.form-control option[value=""][disabled][selected] {
+  color: #aaa;
+}
