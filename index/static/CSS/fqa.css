@@ -14,10 +14,15 @@ header {
   backdrop-filter: blur(10px);
 }
 
-.logout-btn btn-warning{
+#logout_btn_2{
+  color: #f8f9fa;
+  background-color: #fbb519;
+}
+
+/* .logout-btn btn-warning{
   color: orange;
   background-color: orange;
-}
+} */
 .container {
   width: 90%;
   max-width: 1200px;

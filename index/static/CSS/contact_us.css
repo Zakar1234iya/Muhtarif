@@ -14,6 +14,13 @@ header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
+
+
+#logout_btn_2{
+  color: #f8f9fa;
+  background-color: #fbb519;
+}
+
 .logout-btn btn-warning{
   color: orange;
   background-color: orange;
