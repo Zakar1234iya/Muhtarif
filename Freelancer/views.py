@@ -160,19 +160,29 @@ def fetch_freelancers(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+
+
+
+
 def freelancer_post(request):
-    freelancer_id = request.session.get('id')
+    freelancer_email = request.session.get('email')
     user_type = request.session.get('type')
     
     # Ensure the logged-in user is of the correct type (freelancer)
-    if not freelancer_id or user_type != 'freelancer':
-        # Redirect to a general page if the freelancer is not logged in or trying to access the wrong page
+    if not freelancer_email or user_type != 'freelancer':
+        # Redirect to a general page if the user is not logged in or trying to access the wrong page
         return redirect('/')
     
-    # Retrieve the freelancer object by ID
-    freelancer = Freelancer.objects.filter(id=freelancer_id).first()
+    # Retrieve the freelancer object by email
+    freelancer = Freelancer.objects.filter(email=freelancer_email).first()
     if not freelancer:
         messages.error(request, 'Freelancer not found.')
+        return redirect('/')
+
+    # Retrieve the User instance
+    user = User.objects.filter(email=freelancer_email).first()
+    if not user:
+        messages.error(request, 'User not found.')
         return redirect('/')
 
     # Fetch posts created by users
@@ -184,7 +194,7 @@ def freelancer_post(request):
         post = Post.objects.filter(id=post_id).first()
         if post:
             # Create a new comment
-            comment = Comment.objects.create(content=content, creator=freelancer, post=post)
+            comment = Comment.objects.create(content=content, creator=user, post=post)
             messages.success(request, 'تم إضافة التعليق بنجاح!')
         else:
             messages.error(request, 'Post not found.')
@@ -196,4 +206,4 @@ def freelancer_post(request):
     }
     
     # Render the post template with the context data
-    return render(request, 'post.html', context)
+    return render(request, 'Freelancer/post.html', context)
