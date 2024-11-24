@@ -4,7 +4,7 @@ from .models import Freelancer, Address, Profession
 from Freelancer.models import Freelancer 
 from django.apps import apps
 from django.contrib import messages
-from User.models import User  
+from User.models import *
 import bcrypt
 
 
@@ -20,8 +20,10 @@ def index(request):
     
     # Retrieve the freelancer object by ID
     freelancer = Freelancer.objects.get(id=freelancer_id)
+    posts = Post.objects.all()
     context = {
-        'freelancer': freelancer
+        'freelancer': freelancer,
+        'posts': posts,
     }
     
     # Render the freelancer dashboard template with the context data

@@ -67,20 +67,36 @@
         <p>المهنة: {{ freelancer.profession.protag }}</p>      </div>
     </div>
     <div class="comments">
-      {% for comment in comments %}
-        <div class="comment">
-          <div class="comment-profile-pic">
-            {% if comment.user.profile_picture %}
-              <img src="{{ comment.user.profile_picture.url }}" alt="User Picture" style="width: 30px; height: 30px;">
-            {% else %}
-              <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" alt="Default Profile Picture" style="width: 30px; height: 30px;">
-            {% endif %}
-          </div>
-          <p class="comment-name">{{ comment.user.fname }} {{ comment.user.lname }}</p>
-          <p class="comment-text">{{ comment.text }}</p>
-          <button class="reply-btn">الردود</button>
+      {% for post in posts %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <img class="rounded-circle me-3" src="https://via.placeholder.com/100" alt="User profile picture" width="50" height="50">
+                    <div>
+                        <h6 class="mb-0">{{ post.creator.fname }} {{ post.creator.lname }}</h6>
+                        <small class="text-muted">بتاريخ: {{ post.created_at }}</small>
+                    </div>
+                </div>
+                <p class="card-text">{{ post.content }}</p>
+                
+                <!-- Comments Section -->
+                <h6 class="mt-4">التعليقات:</h6>
+                {% for comment in post.comments %}
+                <div class="comment mt-2">
+                    <p>{{ comment.content }}</p>
+                    <small>من: {{ comment.creator.fname }} {{ comment.creator.lname }}</small>
+                    {% if comment.creator.user_type == 'freelancer' %}
+                    <p>العمل أُنجز بواسطة {{ comment.creator.fname }} {{ comment.creator.lname }}</p>
+                    {% endif %}
+                    <!-- "وظف" Button -->
+                    {% if comment.creator.user_type == 'freelancer' %}
+                    <button class="btn btn-success btn-sm" onclick="hireFreelancer('{{ comment.creator.id }}')">وظف</button>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
         </div>
-      {% endfor %}
+        {% endfor %}
     </div>
   </main>
 </body>
