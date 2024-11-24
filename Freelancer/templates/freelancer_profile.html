@@ -40,20 +40,68 @@
         </div>
     </header>
 
-    <main>
-        <section class="profile-section">
-            <div class="profile-container">
-                <div class="profile-pic" style="background-image: url('{{ freelancer.photo.url }}');"></div>
-                <h2>{{ freelancer.fname }} {{ freelancer.lname }}</h2>
-                <h3>تقيمك:</h3>
-                <h3>⭐⭐⭐⭐⭐</h3> <!-- You could implement dynamic rating logic here -->
-                <p>المهنة: {{ freelancer.job_category.proid }}</p>  <!-- Profession dynamically fetched -->
-                <p>الموقع: {{ freelancer.location }}</p>  <!-- Location dynamically fetched -->
-                <p>البريد الإلكتروني: {{ freelancer.email }}</p>  <!-- Email dynamically fetched -->
-                <button class="edit-btn">تعديل المعلومات</button>
-            </div>
-        </section>
-    </main>
+    <main class="container mt-5">
+        <h1 class="mb-4">تعديل مستخدم</h1>
+        {% if errors %}
+          <div class="alert alert-danger">
+            <ul>
+              {% for error in errors.values %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="old_password">كلمة المرور القديمة:</label>
+            <input type="password" class="form-control" id="old_password" name="old_password" required>
+          </div>
+          <div class="form-group">
+            <label for="fname">الاسم الأول:</label>
+            <input type="text" class="form-control" id="fname" name="fname" value="{{ freelancer.fname }}" required>
+          </div>
+          <div class="form-group">
+            <label for="lname">الاسم الأخير:</label>
+            <input type="text" class="form-control" id="lname" name="lname" value="{{ freelancer.lname }}" required>
+          </div>
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني:</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ freelancer.email }}" required>
+          </div>
+          <div class="form-group">
+            <label for="phone_number">رقم الهاتف:</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ freelancer.phone_number }}" required>
+          </div>
+          <div class="form-group">
+            <label for="address_id">العنوان:</label>
+            <select class="form-control" id="address_id" name="address_id" required>
+              <option value="" disabled selected>اختر العنوان</option>
+              {% for address in addresses %}
+                <option value="{{ address.id }}" {% if address.id == freelancer.address.id %}selected{% endif %}>{{ address.address_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="profession_id">المهنة:</label>
+            <select class="form-control" id="profession_id" name="profession_id" required>
+              <option value="" disabled selected>اختر المهنة</option>
+              {% for profession in professions %}
+                <option value="{{ profession.id }}" {% if profession.id == freelancer.profession.id %}selected{% endif %}>{{ profession.protag }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="new_password">كلمة المرور الجديدة:</label>
+            <input type="password" class="form-control" id="new_password" name="new_password">
+          </div>
+          <div class="form-group">
+            <label for="confirm_new_password">تأكيد كلمة المرور الجديدة:</label>
+            <input type="password" class="form-control" id="confirm_new_password" name="confirm_new_password">
+          </div>
+          <button type="submit" class="btn btn-primary">حفظ التعديلات</button>
+        </form>
+      </main>
 
     <footer>
         <div class="fotter">
@@ -70,3 +118,4 @@
 </body>
 
 </html>
+

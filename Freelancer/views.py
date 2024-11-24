@@ -84,7 +84,7 @@ def edit_freelancer(request, freelancer_id):
                 'professions': Profession.get_all_professions(),
                 'addresses': Address.get_all_addresses()
             }
-            return render(request, 'edit_freelancer.html', context)
+            return render(request, 'freelancer_profile.html', context)
 
         if new_password and new_password != confirm_new_password:
             errors = {'new_password': 'كلمة المرور الجديدة غير متطابقة.'}
@@ -94,7 +94,7 @@ def edit_freelancer(request, freelancer_id):
                 'professions': Profession.get_all_professions(),
                 'addresses': Address.get_all_addresses()
             }
-            return render(request, 'edit_freelancer.html', context)
+            return render(request, 'freelancer_profile.html', context)
 
         fname = request.POST.get('fname')
         lname = request.POST.get('lname')
@@ -124,7 +124,7 @@ def edit_freelancer(request, freelancer_id):
                 'professions': Profession.get_all_professions(),
                 'addresses': Address.get_all_addresses()
             }
-            return render(request, 'edit_freelancer.html', context)
+            return render(request, 'freelancer_profile.html', context)
 
         return redirect('/')  # Replace with the actual success page
     else:
@@ -133,7 +133,7 @@ def edit_freelancer(request, freelancer_id):
             'professions': Profession.get_all_professions(),
             'addresses': Address.get_all_addresses()
         }
-        return render(request, 'edit_freelancer.html', context)
+        return render(request, 'freelancer_profile.html', context)
 
 
 def freelancer_list(request):

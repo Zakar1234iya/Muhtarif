@@ -32,19 +32,26 @@
   <main class="content">
     <div class="profile-card">
       <div class="profile-pic">
-        <img src="{{ freelancer.profile_picture.url }}" alt="Profile Picture">
+        {% if freelancer.profile_picture %}
+          <img src="{{ freelancer.profile_picture.url }}" alt="Profile Picture" style="width: 100px; height: 100px;">
+        {% else %}
+          <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" alt="Default Profile Picture" style="width: 100px; height: 100px;">
+        {% endif %}
       </div>
       <p class="name">{{ freelancer.fname }} {{ freelancer.lname }}</p>
-      <button class="edit-btn">تعديل</button>
-      <h3>تقييمك</h3>
+      <a href="{% url 'edit_profile' freelancer.id %}" class="edit-btn">تعديل</a>
+      <br>
+      <br><h3>تقييمك</h3>
       <div class="rating">
-        {% for i in 1|to:5 %}
-          {% if i <= freelancer.average_rating|stringformat:"d" %}
-            <span>⭐</span>
-          {% else %}
-            <span>☆</span>
-          {% endif %}
-        {% endfor %}
+        {% with average_rating=freelancer.average_rating|stringformat:"d" %}
+          {% for i in "12345" %}
+            {% if i|add:"0" < average_rating|add:"0" %}
+              <span>⭐</span>
+            {% else %}
+              <span>☆</span>
+            {% endif %}
+          {% endfor %}
+        {% endwith %}
         <p>متوسط التقييم: {{ freelancer.average_rating }}</p>
       </div>
     </div>
@@ -57,15 +64,17 @@
       </div>
       <div class="task-info">
         <p>عدد المهام المنجزة: {{ completed_tasks }}</p>
-        <p>الرصيد: {{ freelancer.balance }} دينار</p>
-        <p>الوصف: {{ freelancer.description }}</p>
-      </div>
+        <p>المهنة: {{ freelancer.profession.protag }}</p>      </div>
     </div>
     <div class="comments">
       {% for comment in comments %}
         <div class="comment">
           <div class="comment-profile-pic">
-            <img src="{{ comment.user.profile_picture.url }}" alt="User Picture">
+            {% if comment.user.profile_picture %}
+              <img src="{{ comment.user.profile_picture.url }}" alt="User Picture" style="width: 30px; height: 30px;">
+            {% else %}
+              <img src="https://cdn-icons-png.flaticon.com/512/2716/2716808.png" alt="Default Profile Picture" style="width: 30px; height: 30px;">
+            {% endif %}
           </div>
           <p class="comment-name">{{ comment.user.fname }} {{ comment.user.lname }}</p>
           <p class="comment-text">{{ comment.text }}</p>
