@@ -124,7 +124,7 @@ def delayed_add_pro(delay=5):
     timer.start()
     
     
-# delayed_add_pro()
+delayed_add_pro()
 
 
 class Freelancer(models.Model):

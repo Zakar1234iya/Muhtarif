@@ -16,3 +16,9 @@ Freelancer/migrations/__pycache__/__init__.cpython-312.pyc
 *.pyc
 *.pyc
 /Freelancer/__pycache__
+.vscode
+env/
+venv/
+__pycache__/
+.vscode/
+db.sqlite3
