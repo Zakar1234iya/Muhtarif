@@ -92,3 +92,4 @@ document.querySelector('form').addEventListener('submit', function(e) {
         alert('كلمات المرور غير متطابقة.');
     }
 });
+

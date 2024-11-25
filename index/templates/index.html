@@ -16,7 +16,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
             </div>
             <nav>
                 <ul>
@@ -28,15 +28,39 @@
             </nav>
             <div class="language-selector"></div>
             <div class="auth-buttons">
-
                 {% if request.session.id %}
                 <!-- User is logged in, show logout button -->
-                <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
-                {% else %}
+                <a href="/logout"
+                    style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+                    تسجيل خروج
+                </a>
+                <!-- Optionally show the user dashboard link (if needed) -->
+                    {% if request.session.type == 'freelancer' %}
+                        <a href="{% url 'freelancer_dashboard' %}"
+                           style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+الرجوع                        </a>
+                    {% elif request.session.type == 'user' %}
+                        <a href="{% url 'user_dashboard' %}"
+                           style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+الرجوع                        </a>
+                    {% else %}
+                        <p style="color: red;">User type not defined. Please log in.</p>
+                    {% endif %}
+                </div>
+            
+            {% else %}
                 <!-- User is not logged in, show login and register buttons -->
-                <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
-                <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
-                {% endif %}
+                <a href="{% url 'login' %}" class="login-btn"
+                   style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+                   تسجيل الدخول
+                </a>
+                <a href="{% url 'register' %}" class="register-btn"
+                   style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+                   إنشاء حساب
+                </a>
+            {% endif %}
+            
+
             </div>
     </header>
 
@@ -48,7 +72,7 @@
                 <div class="app-buttons"></div>
             </div>
             <div class="hero-image">
-                <img src="https://i.ibb.co/9qVrBv0/logo-page.png" alt="Logo " height="400" width="600" />
+                <img src="{% static 'images/workers1.png' %}" alt="Logo " height="400" width="600" />
             </div>
         </div>
     </section>
@@ -72,7 +96,7 @@
                 </div>
             </div>
             <div class="phone">
-                <img src="https://i.ibb.co/9qVrBv0/logo-page.png" alt="Logo " height="100" width="100" />
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
             </div>
             <div class="text-section">
                 <div class="icon">

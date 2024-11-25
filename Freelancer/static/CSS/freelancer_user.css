@@ -37,9 +37,7 @@ header {
 .logo img {
   height: 90px;
 }
-.profile-card > h3 {
-  margin-left: 0%;
-}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -148,7 +146,7 @@ nav ul li a:hover {
 .task-info {
   height: auto; /* Removed fixed height for better flexibility */
   width: 45%;
-  margin-right: 10%;
+
 }
 
 .task-info p {
@@ -253,4 +251,11 @@ nav ul li a:hover {
   .notifications {
     max-width: 100%;
   }
+}
+
+.comment-card {
+    margin: auto;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }

@@ -16,7 +16,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <img alt="Logo" height="50" src="https://i.ibb.co/9qVrBv0/logo-page.png" width="100" />
+                <img src="{% static 'images/logo.png' %}" alt="Logo">
             </div>
             <nav>
                 <ul>
@@ -29,7 +29,21 @@
             <div class="auth-buttons">
                 {% if request.session.id %}
                 <!-- User is logged in, show logout button -->
-                <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
+                <a href="/logout"
+                    style="background-color: #ffc107; color: #000; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">تسجيل
+                    خروج</a>
+                <!-- Optionally show the user dashboard link (if needed) -->
+                {% if request.session.type == 'freelancer' %}
+                <a href="{% url 'freelancer_dashboard' %}"
+                    style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+                    الرجوع </a>
+                {% elif request.session.type == 'user' %}
+                <a href="{% url 'user_dashboard' %}"
+                    style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+                    الرجوع </a>
+                {% else %}
+                <p style="color: red;">User type not defined. Please log in.</p>
+                {% endif %}
                 {% else %}
                 <!-- User is not logged in, show login and register buttons -->
                 <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
@@ -86,7 +100,7 @@
         <div class="service-box" data-proid="7" onclick="fetchFreelancers(this)">
             <i class="fas fa-camera"></i>
             <p>كاميرات مراقبة</p>
-        </div>        
+        </div>
     </div>
     <div class="social-icons">
         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -103,19 +117,19 @@
     <script>
         function fetchFreelancers(serviceBoxElement) {
             const professionId = serviceBoxElement.getAttribute('data-proid');
-            
+
             if (!professionId) {
                 console.error("Profession ID not found");
                 return;
             }
-    
+
             console.log('Fetching freelancers for profession ID:', professionId); // Add a console log for debugging
-    
+
             // Directly redirect to the freelancer list page with the profession ID
             window.location.href = `/freelancers/?profession_id=${professionId}`;
         }
     </script>
-    
+
 </body>
 
 </html>

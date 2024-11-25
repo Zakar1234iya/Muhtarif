@@ -32,10 +32,13 @@
                     <li><a href="/About_us/">من نحن</a></li>
                     <li><a href="/fqa/">الأسئلة الشائعة</a></li>
                     <li><a href="/contact_us/">اتصل بنا</a></li>
+                    <li><a href="{% url 'chats' %}">المراسلة</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons navbar-item">
                 <a href="{% url 'logout' %}" class="logout-btn">تسجيل الخروج </a>
+                <a href="{% url 'freelancer_dashboard' %}" style="background-color: #ffc107; color: #000; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">الصفحة الرئيسية</a>
+
             </div>
         </div>
     </header>
@@ -51,8 +54,9 @@
             </ul>
           </div>
         {% endif %}
-        <form method="post">
+        <form method="post" action="{% url 'edit_profile' %}">
           {% csrf_token %}
+          <input type="hidden" name="freelancer_id" value="{{freelancer.id}}">
           <div class="form-group">
             <label for="old_password">كلمة المرور القديمة:</label>
             <input type="password" class="form-control" id="old_password" name="old_password" required>
@@ -78,7 +82,7 @@
             <select class="form-control" id="address_id" name="address_id" required>
               <option value="" disabled selected>اختر العنوان</option>
               {% for address in addresses %}
-                <option value="{{ address.id }}" {% if address.id == freelancer.address.id %}selected{% endif %}>{{ address.address_name }}</option>
+                <option value="{{ address.address_id }}" {% if address.address_id == freelancer.address.address_id %}selected{% endif %}>{{ address.address_name }}</option>
               {% endfor %}
             </select>
           </div>
@@ -87,7 +91,7 @@
             <select class="form-control" id="profession_id" name="profession_id" required>
               <option value="" disabled selected>اختر المهنة</option>
               {% for profession in professions %}
-                <option value="{{ profession.id }}" {% if profession.id == freelancer.profession.id %}selected{% endif %}>{{ profession.protag }}</option>
+                <option value="{{ profession.proid }}" {% if profession.proid == freelancer.profession.proid %}selected{% endif %}>{{ profession.protag }}</option>
               {% endfor %}
             </select>
           </div>

@@ -24,6 +24,7 @@
                     <li><a href="/About_us/">من نحن</a></li>
                     <li><a href="/fqa/">الأسئلة الشائعة</a></li>
                     <li><a href="/contact_us/">اتصل بنا</a></li>
+                    <li><a href="{% url 'chats' %}">المراسلة</a></li>
                 </ul>
             </nav>
             <div class="user-info">
@@ -59,36 +60,40 @@
 
     <h3 class="text-center text-secondary mt-5">المنشورات:</h3>
     <div class="mt-4">
-        {% for post in posts %}
+        {% for item in posts %}
         <div class="card mb-4 shadow-sm">
             <div class="card-body">
                 <div class="d-flex align-items-center mb-3">
                     <img class="rounded-circle me-3" src="https://via.placeholder.com/100" alt="User profile picture" width="50" height="50">
                     <div>
-                        <h6 class="mb-0">{{ post.creator.fname }} {{ post.creator.lname }}</h6>
-                        <small class="text-muted">بتاريخ: {{ post.created_at }}</small>
+                        <h6 class="mb-0">{{ item.post.creator.fname }} {{ item.post.creator.lname }}</h6>
+                        <small class="text-muted">بتاريخ: {{ item.post.created_at }}</small>
                     </div>
                 </div>
-                <p class="card-text">{{ post.content }}</p>
+                <p class="card-text">{{ item.post.content }}</p>
 
                 <!-- Delete Button (Only visible to the post creator) -->
-                <form action="{% url 'delete_post' post.id %}" method="post" style="display:inline;">
+                <form action="{% url 'delete_post' item.post.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger btn-sm" id="delete_btn">حذف</button>
                 </form>
                 
                 <!-- Comments Section -->
                 <h6 class="mt-4">التعليقات:</h6>
-                {% for comment in post.comments.all %} <!-- Use .all here -->
+                {% for comment in item.post.comments.all %} <!-- Use .all here -->
                 <div class="comment mt-2">
                     <p>{{ comment.content }}</p>
                     <small>من: {{ comment.creator.fname }} {{ comment.creator.lname }}</small>
-                    {% if comment.creator.user_type == 'freelancer' %}
-                    <p>العمل أُنجز بواسطة {{ comment.creator.fname }} {{ comment.creator.lname }}</p>
-                    {% endif %}
+                    {% if item.post.done %}
+                        <p>العمل أُنجز بواسطة {{ item.hired_freelancer.fname }} {{ item.hired_freelancer.lname }}</p>
+                    {% else %}
                     <!-- "وظف" Button -->
-                    {% if comment.creator.user_type == 'freelancer' %}
-                    <button class="btn btn-success btn-sm" onclick="hireFreelancer('{{ comment.creator.id }}')">وظف</button>
+                    <form action="{% url 'hire' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{ item.post.id }}">
+                        <input type="hidden" name="freelancer_id" value="{{ comment.creator.id }}">
+                        <button class="btn btn-success btn-sm">وظف</button>
+                    </form>
                     {% endif %}
                 </div>
                 {% endfor %}
@@ -115,3 +120,7 @@
 </body>
 
 </html>
+
+
+
+

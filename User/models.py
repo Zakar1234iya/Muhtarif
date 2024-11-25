@@ -116,15 +116,15 @@ class User(models.Model):
     profile_picture = models.ImageField(upload_to='user_profiles/', null=True, blank=True)
     objects = UserManager()
 
-    def __str__(self):
-        return f"{self.fname} {self.lname} ({self.email})"
-
 
 
 # Post Model
 class Post(models.Model):
+    from Freelancer.models import Freelancer
     content = models.TextField()
     creator = models.ForeignKey(User, related_name="all_posts", on_delete=models.DO_NOTHING)
+    done = models.BooleanField(default=False)
+    done_by = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = PostsManager()
@@ -133,52 +133,10 @@ class Post(models.Model):
         return f"Post by {self.creator.fname}: {self.content[:20]}..."
 
 class Comment(models.Model):
+    from Freelancer.models import Freelancer
     post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     objects = CommentManager()
-
-    def __str__(self):
-        return f"Comment by {self.creator.fname}: {self.content[:20]}..."
-
-# ChatSession Model
-class ChatSession(models.Model):
-    user = models.ForeignKey('User.User', on_delete=models.CASCADE)
-    freelancer = models.ForeignKey('Freelancer.Freelancer', on_delete=models.CASCADE)
-    started = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def start_chat(self, user):
-        if user != self.user:
-            raise PermissionError("Only the user can start the chat.")
-        self.started = True
-        self.save()
-
-    def add_message(self, sender, message_text):
-        if not self.started:
-            raise PermissionError("Chat has not been started yet.")
-        if sender not in ['user', 'freelancer']:
-            raise ValueError("Sender must be either 'user' or 'freelancer'.")
-        message = ChatMessage(session=self, sender=sender, text=message_text)
-        message.save()
-
-    def get_messages(self):
-        return self.messages.all()
-
-
-    def __str__(self):
-        return f"Chat between {self.user.fname} and {self.freelancer.fname}"
-
-
-# ChatMessage Model
-class ChatMessage(models.Model):
-    session = models.ForeignKey(ChatSession, related_name="messages", on_delete=models.CASCADE)
-    sender = models.CharField(max_length=10)  # 'user' or 'freelancer'
-    text = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.sender}: {self.text[:20]}..."
-
 

@@ -1,9 +1,8 @@
 from django.db import models
-from index.models import Address
+from index.models import Address 
 import bcrypt
 import threading
-from django.contrib.auth.models import User
-
+from User.models import User
 
 class FreelancerManager(models.Manager):
     
@@ -61,8 +60,6 @@ class FreelancerManager(models.Manager):
 
         return freelancer  # Return the newly created Freelancer object
 
-
-
     def edit_freelancer(self, freelancer_id, postdata):
         freelancer = self.get(id=freelancer_id)
 
@@ -81,14 +78,22 @@ class FreelancerManager(models.Manager):
         freelancer.save()
         return freelancer
 
+    def has_already_commented(self, user, freelancer):
+        return Comment.objects.filter(freelancer=freelancer, author=user).exists()
+
+
+class NotificationManager(models.Manager):
+    def add_notification(self, content, freelancer):
+        return Notification.objects.create(content=content, freelancer=freelancer)
+    def get_notifications(self, freelancer):
+        return Notification.objects.filter(freelancer=freelancer)
+
 class Profession(models.Model):
     proid = models.SmallIntegerField(primary_key=True)  # Set as primary key
     protag = models.CharField(max_length=50)
 
-    
     def get_all_professions():
         return Profession.objects.all()
-
 
 def add_pro():
     professions = [
@@ -107,8 +112,8 @@ def add_pro():
     ]
 
     for profession in professions:
-        created_address = Profession.objects.filter(proid=profession['proid'], protag=profession['protag'])
-        if not created_address.exists():
+        created_profession = Profession.objects.filter(proid=profession['proid'], protag=profession['protag'])
+        if not created_profession.exists():
             Profession.objects.create(proid=profession['proid'], protag=profession['protag'])
             print(f"Created new profession: {profession['protag']}")
         else:
@@ -117,11 +122,10 @@ def add_pro():
 def delayed_add_pro(delay=5):
     timer = threading.Timer(delay, add_pro)
     timer.start()
-
+    
+    
 # delayed_add_pro()
-from django.db import models
-from django.contrib.auth.models import User
-import bcrypt
+
 
 class Freelancer(models.Model):
     fname = models.CharField(max_length=50)
@@ -133,27 +137,40 @@ class Freelancer(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
     profession = models.ForeignKey(Profession, on_delete=models.CASCADE)
-    rating_total = models.PositiveIntegerField(default=0)
-    rating_count = models.PositiveIntegerField(default=0)
     profile_picture = models.ImageField(upload_to='freelancer_profiles/', null=True, blank=True)
     tasks = models.PositiveIntegerField(default=0)  # Track the number of tasks
-    objects = FreelancerManager()
-
-    def __str__(self):
-        return f"{self.fname} {self.lname}"
+    objects = FreelancerManager()  # Use the custom manager
 
     def validate_password(self, raw_password):
         return bcrypt.checkpw(raw_password.encode(), self.password.encode())
 
-    def average_rating(self):
-        if self.rating_count == 0:
-            return 0
-        return self.rating_total / self.rating_count
+    def rating(self):
+        comments = Comment.objects.filter(freelancer=self)
+        stars = 0
+        ratings = 0
+        for comment in comments:
+            stars += comment.rating
+            ratings += 1
+        return stars if stars == 0 else stars / ratings
+    
+    def get_completed_tasks(self):
+        return self.freelancer_tasks.filter(status='completed').count()
 
+# Notification Model
+class Notification(models.Model):
+    content = models.TextField()
+    freelancer = models.ForeignKey(Freelancer, related_name='freelancer_notifications', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    objects = NotificationManager()
+
+# Task Model
 class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    status = models.CharField(max_length=50, choices=[('completed', 'Completed'), ('pending', 'Pending')])
+    status = models.CharField(
+        max_length=50,
+        choices=[('completed', 'Completed'), ('pending', 'Pending')],
+    )
     freelancer = models.ForeignKey(Freelancer, related_name='freelancer_tasks', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='user_tasks', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -162,63 +179,102 @@ class Task(models.Model):
     def __str__(self):
         return self.title
 
-    # Method to add a task
-    def add_task(self, title, description, user, freelancer):
-        task = Task.objects.create(
-            title=title,
-            description=description,
-            status='pending',
-            user=user,
-            freelancer=freelancer
-        )
-        return task
-
-    # Method to remove a task
-    def remove_task(self, task_id):
-        task = Task.objects.filter(id=task_id).first()
-        if task:
-            task.delete()
-            return True
-        return False
-
-    # Method to update task status
-    def update_status(self, new_status):
-        if new_status in ['completed', 'pending']:
-            self.status = new_status
-            self.save()
-            return True
-        return False
-
-    # Method to get the state of the task
-    def get_state(self):
-        return self.status
-
+# Comment Model
 class Comment(models.Model):
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
     freelancer = models.ForeignKey(Freelancer, related_name='freelancer_comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, related_name='user_comments', on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    # other fields like timestamp, etc.
+
 
     def __str__(self):
-        return f"Comment by {self.creator.fname} {self.creator.lname} on {self.freelancer.fname} {self.freelancer.lname}"
+        print(f"Freelancer: {self.freelancer.first_name} {self.freelancer.last_name}")  # Debugging
+        return f"Comment by {self.creator.username} on {self.freelancer.first_name} {self.freelancer.last_name}"
 
-    # Method to add a comment
-    def add_comment(self, content, creator, freelancer):
-        comment = Comment.objects.create(
-            content=content,
-            creator=creator,
-            freelancer=freelancer
-        )
-        return comment
 
-    # Method to remove a comment
-    def remove_comment(self, comment_id):
-        comment = Comment.objects.filter(id=comment_id).first()
-        if comment:
-            comment.delete()
-            return True
-        return False
+# Task-related functions
+def add_task(title, description, user, freelancer):
+    # Adds a new task to the database.
+    return Task.objects.create(
+        title=title,
+        description=description,
+        status='pending',
+        user=user,
+        freelancer=freelancer
+    )
 
-    # Method to get comments for a freelancer
-    def get_comments(self, freelancer):
-        return Comment.objects.filter(freelancer=freelancer).order_by('-created_at')
+def remove_task(task_id):
+    # Removes a task with the given task_id.
+    task = Task.objects.filter(id=task_id).first()
+    if task:
+        task.delete()
+        return True
+    return False
+
+def update_task_status(task, new_status):
+    # Updates the status of the given task if the status is valid.
+    valid_statuses = [choice[0] for choice in Task._meta.get_field('status').choices]
+    if new_status in valid_statuses:
+        task.status = new_status
+        task.save()
+        return True
+    return False
+
+
+def add_comment(content, author, freelancer, rating):
+    print(author)
+    print(author.fname)
+    comment = Comment.objects.create(
+        content=content,
+        author=author,
+        freelancer=freelancer,
+        rating=rating
+    )
+    return comment
+
+
+
+def remove_comment(comment_id):
+    # Removes a comment with the given comment_id
+    comment = Comment.objects.filter(id=comment_id).first()
+    if comment:
+        comment.delete()
+        return True
+    return False
+
+def get_comments_for_freelancer(freelancer):
+  
+    return Comment.objects.filter(freelancer=freelancer).order_by('-created_at')
+
+
+# ChatSession Model
+class ChatSession(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def add_message(self, sender, message_text, current_user_type):
+        return ChatMessage.objects.create(session=self, sender=str(sender.id), text=message_text, sender_type=current_user_type)
+
+    def get_messages(self):
+        return ChatMessage.objects.filter(session=self)
+
+
+    def __str__(self):
+        return f"Chat between {self.user.fname} and {self.freelancer.fname}"
+
+
+# ChatMessage Model
+class ChatMessage(models.Model):
+    session = models.ForeignKey(ChatSession, related_name="messages", on_delete=models.CASCADE)
+    sender = models.TextField()  # sender id
+    sender_type = models.TextField()
+    text = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.sender}: {self.text[:20]}..."
+
+

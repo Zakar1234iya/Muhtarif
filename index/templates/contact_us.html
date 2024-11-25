@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{% static 'CSS/contact_us.css' %}">
-  </head>
+</head>
 
 
 <body>
@@ -30,18 +30,33 @@
 
         {% if request.session.id %}
         <!-- User is logged in, show logout button -->
-        <a href="{% url 'logout' %}" class="logout-btn btn-warning">تسجيل الخروج</a>
-    {% else %}
+        <a href="/logout"
+          style="background-color: #ffc107; color: #000; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold;">تسجيل
+          خروج</a>
+             <!-- Optionally show the user dashboard link (if needed) -->
+             {% if request.session.type == 'freelancer' %}
+             <a href="{% url 'freelancer_dashboard' %}"
+                style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+الرجوع                        </a>
+         {% elif request.session.type == 'user' %}
+             <a href="{% url 'user_dashboard' %}"
+                style="background-color: #ffc107 !important; color: #000 !important; padding: 10px 15px !important; border-radius: 5px !important; text-decoration: none !important; font-weight: bold !important;">
+الرجوع                        </a>
+         {% else %}
+             <p style="color: red;">User type not defined. Please log in.</p>
+         {% endif %}
+        </script>
+        {% else %}
         <!-- User is not logged in, show login and register buttons -->
         <a href="{% url 'login' %}" class="login-btn">تسجيل الدخول</a>
         <a href="{% url 'register' %}" class="register-btn">إنشاء حساب</a>
-    {% endif %}
-    </div>
-    
+        {% endif %}
+      </div>
+
 
     </div>
   </header>
-  
+
   <div class="contact-container">
     <div class="contact-info">
       <h2>اتصل بنا</h2>
@@ -61,7 +76,7 @@
       <a href="#"><i class="fab fa-instagram"></i></a>
       <a href="#"><i class="fab fa-tiktok"></i></a>
       <h6 class="copyright">كل الحقوق محفوظة لموقع محترف 2024©</h6>
-  </div>
+    </div>
 </body>
 
 </html>
